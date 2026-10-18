@@ -1,11 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ALLOWED_EMAIL_DOMAINS, displayName, emailAllowed, supabase, useSession } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+import { getMe, setDisplayName } from "@/lib/api";
+import { ALLOWED_EMAIL_DOMAINS, emailAllowed, supabase, useSession } from "@/lib/supabase";
 
 const inputClass = "w-full min-h-11 rounded-lg border border-line px-3 focus:outline-2 focus:outline-brand";
+
+/** Where to go after signing in: the page that sent us here (?next=/sell), else Browse. */
+function nextPath(): string {
+  const next = new URLSearchParams(window.location.search).get("next") || "/";
+  return next.startsWith("/") && !next.startsWith("//") ? next : "/"; // same-site paths only
+}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,6 +19,7 @@ export default function LoginPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
@@ -30,39 +37,41 @@ export default function LoginPage() {
       setError("Password must be at least 6 characters.");
       return;
     }
+    if (mode === "signup" && !name.trim()) {
+      setError("Add a display name.");
+      return;
+    }
     setBusy(true);
     const { data, error } =
       mode === "signin"
         ? await supabase.auth.signInWithPassword({ email: value, password })
         : await supabase.auth.signUp({ email: value, password });
-    setBusy(false);
     if (error) {
       setError(error.message);
     } else if (!data.session) {
       // Only happens if the Supabase project requires email confirmation.
       setNotice("Account created. Confirm your email, then sign in.");
     } else {
-      router.push("/");
+      if (mode === "signup") await setDisplayName(name.trim()).catch(() => {}); // can be set later on this page
+      router.push(nextPath());
     }
+    setBusy(false);
   }
 
-  if (session) {
-    return (
-      <div className="max-w-sm mx-auto mt-12 text-center space-y-4">
-        <h1 className="text-2xl font-bold">You&apos;re signed in</h1>
-        <p className="text-muted">Signed in as {displayName(session)}.</p>
-        <Link href="/" className="inline-flex min-h-11 items-center px-4 rounded-lg bg-brand text-white font-medium">
-          Browse items
-        </Link>
-      </div>
-    );
-  }
+  if (session) return <Account />;
 
   return (
     <div className="max-w-sm mx-auto mt-12">
       <h1 className="text-2xl font-bold mb-1">{mode === "signin" ? "Sign in" : "Create account"}</h1>
       <p className="text-muted mb-6">UBC emails only.</p>
       <form onSubmit={submit} className="space-y-3">
+        {mode === "signup" && (
+          <div className="space-y-1">
+            <label className="block text-sm font-medium" htmlFor="name">Display name</label>
+            <input id="name" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} placeholder="e.g. Sam" className={inputClass} />
+            <p className="text-xs text-muted">Shown on your listings. Your email stays private.</p>
+          </div>
+        )}
         <div className="space-y-1">
           <label className="block text-sm font-medium" htmlFor="email">Campus email</label>
           <input
@@ -110,6 +119,64 @@ export default function LoginPage() {
           {mode === "signin" ? "Create an account" : "Sign in"}
         </button>
       </p>
+    </div>
+  );
+}
+
+/** Signed in: set the display name buyers see on your listings. */
+function Account() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    getMe()
+      .then((me) => {
+        setEmail(me.email);
+        setName(me.name || "");
+      })
+      .catch((e: Error) => setStatus(e.message))
+      .finally(() => setLoaded(true));
+  }, []);
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    setStatus("");
+    try {
+      const me = await setDisplayName(name.trim());
+      setName(me.name);
+      setStatus("Saved.");
+    } catch (err) {
+      setStatus((err as Error).message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="max-w-sm mx-auto mt-12 space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold">Your account</h1>
+        {email && <p className="text-muted">Signed in as {email}</p>}
+      </div>
+      <form onSubmit={save} className="space-y-2">
+        <label className="block text-sm font-medium" htmlFor="display">Display name</label>
+        <input id="display" value={name} maxLength={40} disabled={!loaded} onChange={(e) => setName(e.target.value)} placeholder="e.g. Sam" className={inputClass} />
+        <p className="text-xs text-muted">
+          Shown on your listings as &ldquo;Posted by {name.trim() || "UBC student"}&rdquo;. Your email stays private.
+        </p>
+        {status && <p className={`text-sm ${status === "Saved." ? "text-brand" : "text-red-700"}`}>{status}</p>}
+        <button disabled={saving || !loaded || !name.trim()} className="w-full min-h-11 rounded-lg bg-brand text-white font-medium disabled:opacity-60">
+          {saving ? "Saving…" : "Save display name"}
+        </button>
+      </form>
+      <button onClick={() => router.push(nextPath())} className="w-full min-h-11 rounded-lg border border-line font-medium hover:bg-panel">
+        Continue
+      </button>
     </div>
   );
 }

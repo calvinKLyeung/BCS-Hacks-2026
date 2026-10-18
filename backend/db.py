@@ -2,6 +2,7 @@
 from functools import lru_cache
 from typing import Optional
 
+from postgrest.exceptions import APIError
 from supabase import Client, create_client
 
 import config
@@ -27,12 +28,28 @@ def client() -> Client:
 def _flatten(row: dict) -> dict:
     """Turn the embedded users(name) into seller_name."""
     user = row.pop("users", None) or {}
-    row["seller_name"] = user.get("name") or "student"
+    row["seller_name"] = user.get("name") or config.ANONYMOUS_SELLER
     return row
 
 
-def upsert_user(user_id: str, email: str, name: str) -> None:
-    client().table("users").upsert({"id": user_id, "email": email, "name": name}).execute()
+def upsert_user(user_id: str, email: str) -> None:
+    # Only id + email: an existing row keeps the display name the user chose.
+    try:
+        client().table("users").upsert({"id": user_id, "email": email}).execute()
+    except APIError as e:
+        # A new account's first requests can arrive together; if another one just created
+        # the row, the email's unique constraint fires. The row exists, which is all we need.
+        if e.code != "23505":
+            raise
+
+
+def get_user_name(user_id: str) -> Optional[str]:
+    res = client().table("users").select("name").eq("id", user_id).limit(1).execute()
+    return res.data[0]["name"] if res.data else None
+
+
+def set_user_name(user_id: str, name: str) -> None:
+    client().table("users").update({"name": name}).eq("id", user_id).execute()
 
 
 def get_user_by_email(email: str) -> Optional[dict]:
@@ -50,22 +67,17 @@ def get_listing(listing_id: str) -> Optional[dict]:
     return _flatten(res.data[0]) if res.data else None
 
 
-def list_listings(type_: Optional[str], tag: Optional[str], q: Optional[str], limit: int) -> list[dict]:
-    query = (
-        client().table("listings").select(LISTING_COLUMNS)
-        .eq("campus_id", config.CAMPUS_ID).eq("status", "available")
-    )
-    if type_:
-        query = query.eq("type", type_)
-    if tag:
-        query = query.eq("tag", tag)
-    if q:
-        # Strip characters that have meaning in PostgREST's or() syntax.
-        safe = "".join(c for c in q if c not in ",()%*\\").strip()
-        if safe:
-            query = query.or_(f"title.ilike.*{safe}*,description.ilike.*{safe}*")
-    res = query.order("created_at", desc=True).limit(limit).execute()
-    return [_flatten(r) for r in res.data]
+def list_listings(type_: Optional[str], tag: Optional[str], q: Optional[str],
+                  lat: float, lng: float, limit: int, offset: int = 0) -> list[dict]:
+    """Available listings, nearest first (distance_m computed in the database), one page at a time."""
+    res = client().rpc("nearby_listings", {
+        "user_lat": lat, "user_lng": lng, "filter_campus": config.CAMPUS_ID,
+        "filter_type": type_, "filter_tag": tag, "search": (q or "").strip() or None,
+        "page_size": limit, "page_offset": offset,
+    }).execute()
+    for r in res.data:
+        r["seller_name"] = r.get("seller_name") or config.ANONYMOUS_SELLER
+    return res.data
 
 
 def match_listings(embedding: list[float], count: int, type_: Optional[str], tag: Optional[str]) -> list[dict]:
@@ -89,6 +101,11 @@ def get_listings_by_ids(ids: list[str]) -> list[dict]:
 def get_contact_email(listing_id: str) -> Optional[str]:
     res = client().table("listings").select("contact_email").eq("id", listing_id).limit(1).execute()
     return res.data[0]["contact_email"] if res.data else None
+
+
+def photo_in_use(url: str) -> bool:
+    res = client().table("listings").select("id").contains("photos", [url]).limit(1).execute()
+    return bool(res.data)
 
 
 def delete_listing(listing_id: str) -> None:

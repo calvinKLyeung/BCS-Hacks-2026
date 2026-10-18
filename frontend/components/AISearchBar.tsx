@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
-
 interface Props {
+  value: string;
+  onChange: (value: string) => void;
   loading: boolean;
   onSearch: (query: string) => void;
 }
 
-export default function AISearchBar({ loading, onSearch }: Props) {
-  const [value, setValue] = useState("");
-
+export default function AISearchBar({ value, onChange, loading, onSearch }: Props) {
   return (
     <form
       onSubmit={(e) => {
@@ -20,7 +18,7 @@ export default function AISearchBar({ loading, onSearch }: Props) {
     >
       <input
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={`Try "I need a desk, I'm at Totem, no car"`}
         aria-label="Describe what you're looking for"
         className="flex-1 min-w-0 min-h-12 rounded-xl border border-line px-4 focus:outline-2 focus:outline-brand"

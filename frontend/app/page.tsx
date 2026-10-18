@@ -29,6 +29,7 @@ export default function BrowsePage() {
   const [type, setType] = useState<PostType | null>(null);
   const [tag, setTag] = useState<Tag | null>(null);
   const [search, setSearch] = useState({ query: "", nonce: 0 });
+  const [searchText, setSearchText] = useState("");
 
   // The last finished request, tagged with the key of the inputs it was made for.
   const [result, setResult] = useState<{
@@ -37,7 +38,9 @@ export default function BrowsePage() {
     answer: string | null;
     recommended: string[];
     error: string;
-  }>({ key: "", items: [], answer: null, recommended: [], error: "" });
+    hasMore: boolean;
+  }>({ key: "", items: [], answer: null, recommended: [], error: "", hasMore: false });
+  const [loadingMore, setLoadingMore] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const [isDesktop, setIsDesktop] = useState(false);
@@ -71,11 +74,14 @@ export default function BrowsePage() {
     const id = ++requestId.current;
     const req = search.query
       ? aiSearch({ query: search.query, lat: userLoc?.lat, lng: userLoc?.lng, type, tag })
-      : getListings({ type, tag, loc: userLoc }).then((r) => ({ answer: null, recommended_ids: [], items: r.items }));
+      : getListings({ type, tag, loc: userLoc }).then((r) => ({ answer: null, recommended_ids: [], items: r.items, has_more: r.has_more }));
     req
       .then((r) => {
         if (id !== requestId.current) return; // a newer request superseded this one
-        setResult({ key: requestKey, items: r.items, answer: r.answer, recommended: r.recommended_ids, error: "" });
+        setResult({
+          key: requestKey, items: r.items, answer: r.answer, recommended: r.recommended_ids, error: "",
+          hasMore: "has_more" in r ? !!r.has_more : false,
+        });
       })
       .catch((e: Error) => {
         if (id === requestId.current) setResult((prev) => ({ ...prev, key: requestKey, error: e.message }));
@@ -109,6 +115,25 @@ export default function BrowsePage() {
     setNearError("");
   }
 
+  // Next page of the (distance-sorted) browse list.
+  async function loadMore() {
+    const key = requestKey;
+    setLoadingMore(true);
+    try {
+      const r = await getListings({ type, tag, loc: userLoc, offset: result.items.length });
+      setResult((prev) => (prev.key === key ? { ...prev, items: [...prev.items, ...r.items], hasMore: r.has_more } : prev));
+    } catch (e) {
+      setResult((prev) => ({ ...prev, error: (e as Error).message }));
+    } finally {
+      setLoadingMore(false);
+    }
+  }
+
+  function clearSearch() {
+    setSearchText("");
+    setSearch((s) => ({ query: "", nonce: s.nonce + 1 }));
+  }
+
   function selectFromMap(id: string | null) {
     setSelectedId(id);
     if (id) document.getElementById(`card-${id}`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -116,6 +141,16 @@ export default function BrowsePage() {
 
   const results = (
     <div className="space-y-3">
+      {search.query && !loading && (
+        <div className="flex items-center justify-between gap-2 text-sm text-muted">
+          <span className="min-w-0 truncate">
+            {items.length > 0 ? `Top ${items.length} matches` : "No matches"} for “{search.query}”
+          </span>
+          <button onClick={clearSearch} className="shrink-0 min-h-11 px-3 rounded-lg font-medium text-brand hover:bg-panel">
+            Clear search
+          </button>
+        </div>
+      )}
       {loading && items.length === 0 && <p className="text-sm text-muted">Loading items…</p>}
       {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p>}
       {!loading && !error && items.length === 0 && (
@@ -132,6 +167,15 @@ export default function BrowsePage() {
           onSelect={() => setSelectedId(l.id)}
         />
       ))}
+      {result.hasMore && !search.query && !loading && (
+        <button
+          onClick={loadMore}
+          disabled={loadingMore}
+          className="w-full min-h-11 rounded-xl border border-line text-sm font-medium hover:bg-panel disabled:opacity-60"
+        >
+          {loadingMore ? "Loading…" : "Load more"}
+        </button>
+      )}
     </div>
   );
 
@@ -151,7 +195,12 @@ export default function BrowsePage() {
 
   return (
     <div className="space-y-4">
-      <AISearchBar loading={loading && !!search.query} onSearch={(query) => setSearch((s) => ({ query, nonce: s.nonce + 1 }))} />
+      <AISearchBar
+        value={searchText}
+        onChange={setSearchText}
+        loading={loading && !!search.query}
+        onSearch={(query) => setSearch((s) => ({ query, nonce: s.nonce + 1 }))}
+      />
       <Filters type={type} tag={tag} onType={setType} onTag={setTag} />
 
       {points.length > 0 && (

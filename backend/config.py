@@ -35,6 +35,8 @@ with open(os.path.join(os.path.dirname(__file__), "ubc_buildings.json")) as f:
 PICKUP_BY_ID = {p["id"]: p for p in PICKUP_POINTS}
 
 CAMPUS_CENTER = (49.2606, -123.2460)
+MAX_PRICE = 99_999_999.99  # CAD; the largest value the price column (numeric(10,2)) can hold
+ANONYMOUS_SELLER = "UBC student"  # shown when a seller hasn't set a display name
 
 
 def email_allowed(email: str) -> bool:

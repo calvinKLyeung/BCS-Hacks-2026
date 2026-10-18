@@ -13,7 +13,7 @@ import db
 import storage
 from auth import get_current_user, get_optional_user
 from geo import haversine
-from models import ListingCreate, ListingOut, SearchRequest, SearchResponse
+from models import DisplayName, ListingCreate, ListingOut, PhotoList, SearchRequest, SearchResponse
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("main")
@@ -71,6 +71,8 @@ def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> st
     if data.type == "sell":
         if data.price is None or data.price < 0:
             raise HTTPException(400, "Price is required for Sell listings and must be 0 or more")
+        if data.price > config.MAX_PRICE:
+            raise HTTPException(400, f"Price must be ${config.MAX_PRICE:,} or less")
         price = round(data.price, 2)
     else:
         price = None
@@ -121,6 +123,31 @@ def health():
     return {"ok": True}
 
 
+@app.get("/me")
+def get_me(user: dict = Depends(get_current_user)):
+    return {"email": user["email"], "name": db.get_user_name(user["id"])}
+
+
+@app.put("/me")
+def set_me(body: DisplayName, user: dict = Depends(get_current_user)):
+    name = body.name.strip()
+    if not name:
+        raise HTTPException(400, "Display name can't be empty")
+    if "@" in name:
+        raise HTTPException(400, "Use a name, not an email address")
+    db.set_user_name(user["id"], name)
+    return {"email": user["email"], "name": name}
+
+
+@app.post("/photos/discard")
+def discard_photos(body: PhotoList, user: dict = Depends(get_current_user)):
+    """Delete photos uploaded by /analyze that never made it into a listing ("Start over")."""
+    own = f"/object/public/{config.BUCKET}/{user['id']}/"
+    mine = [u for u in body.photos if own in u and not db.photo_in_use(u)]
+    storage.delete_photos(mine)
+    return {"deleted": len(mine)}
+
+
 @app.get("/pickup-points")
 def pickup_points():
     return config.PICKUP_POINTS
@@ -164,13 +191,13 @@ def get_listings(
     lat: Optional[float] = None,
     lng: Optional[float] = None,
     limit: int = Query(50, ge=1, le=100),
+    offset: int = Query(0, ge=0),
 ):
     if tag and tag not in config.TAGS:
         raise HTTPException(400, "Unknown tag")
     lat, lng = resolve_location(lat, lng)
-    rows = [with_distance(r, lat, lng) for r in db.list_listings(type, tag, q, limit)]
-    rows.sort(key=lambda r: r["distance_m"])
-    return {"items": [ListingOut(**r) for r in rows]}
+    rows = db.list_listings(type, tag, q, lat, lng, limit + 1, offset)  # one extra tells us if there's more
+    return {"items": [ListingOut(**r) for r in rows[:limit]], "has_more": len(rows) > limit}
 
 
 @app.get("/listings/{listing_id}", response_model=ListingOut)
@@ -221,8 +248,7 @@ def ai_search(req: SearchRequest):
         items = [with_distance(by_id[i], lat, lng) for i in ids if i in by_id]
     except Exception as e:
         log.warning("Vector search failed, falling back to keyword search: %s", e)
-        rows = [with_distance(r, lat, lng) for r in db.list_listings(req.type, tag, query, 50)]
-        rows.sort(key=lambda r: r["distance_m"])
+        rows = db.list_listings(req.type, tag, query, lat, lng, 50)
         return {"answer": None, "recommended_ids": [], "items": rows}
 
     if not items:

@@ -55,7 +55,7 @@ def get_seed_user(email: str) -> str:
     if existing:
         return existing["id"]
     user_id = str(uuid.uuid4())
-    db.upsert_user(user_id, email, email.split("@", 1)[0])
+    db.upsert_user(user_id, email)
     return user_id
 
 

@@ -18,7 +18,13 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       { source: "/backend/:path*", destination: `${BACKEND_URL}/:path*` },
-      { source: "/supabase/:path*", destination: `${SUPABASE_URL}/:path*` },
+      // Only what the browser needs from Supabase: password sign-in/up, session refresh, sign-out,
+      // and public listing photos. Everything else (database API, admin routes) is not forwarded.
+      { source: "/supabase/auth/v1/:endpoint(token|signup|user|logout)", destination: `${SUPABASE_URL}/auth/v1/:endpoint` },
+      {
+        source: "/supabase/storage/v1/object/public/listing-photos/:path*",
+        destination: `${SUPABASE_URL}/storage/v1/object/public/listing-photos/:path*`,
+      },
     ];
   },
   experimental: {

@@ -59,7 +59,7 @@ function ItemDetail() {
   const isSeller = session?.user.id === listing.seller_id;
 
   function contact() {
-    if (!session) router.push("/login");
+    if (!session) router.push(`/login?next=${encodeURIComponent(`/item/${id}`)}`);
     else setContactOpen(true);
   }
 
