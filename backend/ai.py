@@ -1,6 +1,7 @@
 import base64
 import json
 import logging
+import math
 import os
 
 import httpx
@@ -73,15 +74,17 @@ def embed(text: str) -> list[float]:
     if len(vec) != config.EMBEDDING_DIMS:
         raise ValueError(
             f"Embedding has {len(vec)} dims but EMBEDDING_DIMS={config.EMBEDDING_DIMS}. "
-            "Update EMBEDDING_DIMS and the vector(...) size in supabase/schema.sql."
+            "Update EMBEDDING_DIMS and the vector(...) size in supabase/migrations/20261017000000_schema.sql."
         )
     return vec
 
 
 def answer_search(query: str, items: list[dict]) -> dict:
+    # walk_min is precomputed (80 m/min, same as the UI): small models get the arithmetic wrong.
     compact = [
         {k: it[k] for k in ("id", "title", "type", "price", "tag", "condition",
                             "condition_reason", "pickup_name", "distance_m")}
+        | {"walk_min": max(1, math.ceil(it["distance_m"] / 80))}
         for it in items
     ]
     prompt = SEARCH_PROMPT.replace("{query}", query).replace("{items_json}", json.dumps(compact))
