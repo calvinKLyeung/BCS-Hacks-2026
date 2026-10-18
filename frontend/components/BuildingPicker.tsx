@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { MY_LOCATION } from "@/lib/location";
 import type { PickupPoint } from "@/lib/types";
 
@@ -21,6 +21,15 @@ export default function BuildingPicker({ points, value, onChange, id, placeholde
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const listId = useId();
+  const listRef = useRef<HTMLUListElement>(null);
+
+  // Like a native dropdown: open with the current choice scrolled to the middle, not at the top.
+  useEffect(() => {
+    if (!open || query.trim()) return;
+    const list = listRef.current;
+    const current = list?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (list && current) list.scrollTop = current.offsetTop - list.clientHeight / 2 + current.offsetHeight / 2;
+  }, [open, query]);
 
   const q = query.trim().toLowerCase();
   // Show every match; the list scrolls. (~440 buildings is small enough to render in full.)
@@ -60,7 +69,7 @@ export default function BuildingPicker({ points, value, onChange, id, placeholde
         className="w-full min-h-11 rounded-lg border border-line bg-white px-3 focus:outline-2 focus:outline-brand"
       />
       {open && (
-        <ul id={listId} role="listbox" className="absolute z-20 mt-1 max-h-80 w-full overflow-y-auto rounded-lg border border-line bg-white shadow-lg">
+        <ul ref={listRef} id={listId} role="listbox" className="absolute z-20 mt-1 max-h-80 w-full overflow-y-auto rounded-lg border border-line bg-white shadow-lg">
           {/* Tell people the list is long and searchable, so they don't assume it ends where the box does. */}
           <li role="presentation" className="sticky top-0 border-b border-line bg-panel px-3 py-1.5 text-xs text-muted">
             {q
@@ -75,7 +84,7 @@ export default function BuildingPicker({ points, value, onChange, id, placeholde
               aria-selected={p.id === value}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => choose(p)}
-              className={`cursor-pointer px-3 py-2.5 text-sm hover:bg-panel ${p.id === value ? "font-semibold" : ""}`}
+              className={`cursor-pointer px-3 py-2.5 text-sm hover:bg-panel ${p.id === value ? "bg-panel font-semibold" : ""}`}
             >
               {p.name}
             </li>
