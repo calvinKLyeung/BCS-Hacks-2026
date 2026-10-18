@@ -3,14 +3,17 @@ import type { PickupPoint } from "./types";
 const STORAGE_KEY = "campusswap.nearPoint";
 export const DEFAULT_POINT_ID = "totem";
 
-/** Browser geolocation with a 5 s timeout. Resolves null if denied or unavailable. */
-export function getBrowserLocation(): Promise<{ lat: number; lng: number } | null> {
+/**
+ * Browser geolocation. Resolves null if denied or unavailable.
+ * `fresh` asks for a new high-accuracy reading (for the "my location" button) instead of a cached one.
+ */
+export function getBrowserLocation(fresh = false): Promise<{ lat: number; lng: number } | null> {
   return new Promise((resolve) => {
     if (typeof navigator === "undefined" || !navigator.geolocation) return resolve(null);
     navigator.geolocation.getCurrentPosition(
       (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
       () => resolve(null),
-      { timeout: 5000, maximumAge: 60000 },
+      fresh ? { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } : { timeout: 5000, maximumAge: 60000 },
     );
   });
 }

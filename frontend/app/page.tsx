@@ -71,6 +71,16 @@ export default function BrowsePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestKey]);
 
+  // "Show my location" button on the map: a fresh reading replaces the I'm-near fallback.
+  async function locateMe() {
+    const loc = await getBrowserLocation(true);
+    if (loc) {
+      setGeoLoc(loc);
+      setGeoDenied(false);
+    }
+    return loc;
+  }
+
   function selectFromMap(id: string | null) {
     setSelectedId(id);
     if (id) document.getElementById(`card-${id}`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -104,6 +114,7 @@ export default function BrowsePage() {
         userLoc={userLoc}
         selectedId={selectedId}
         onSelect={selectFromMap}
+        onLocate={locateMe}
         className="h-[60vh] lg:h-[560px]"
       />
       <p className="mt-1.5 text-xs text-muted">Pins show approximate pickup spots.</p>

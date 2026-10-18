@@ -3,10 +3,10 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { CircleMarker, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useEffect, useRef, useState } from "react";
+import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import type { Loc } from "@/lib/api";
-import { distanceLabel, priceLabel, type Listing } from "@/lib/types";
+import { distanceLabel, priceLabel, TYPE_SOLID, type Listing } from "@/lib/types";
 
 const CAMPUS_CENTER: [number, number] = [49.2606, -123.246];
 
@@ -18,6 +18,57 @@ export interface MapProps {
   center?: Loc;
   zoom?: number;
   className?: string;
+  /** Get a fresh position and update the blue dot; resolves null if location isn't available. */
+  onLocate?: () => Promise<Loc | null>;
+}
+
+/** "Show my location" button in the map corner: refreshes the blue dot and zooms to it. */
+function LocateButton({ onLocate }: { onLocate: () => Promise<Loc | null> }) {
+  const map = useMap();
+  const ref = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<"idle" | "locating" | "failed">("idle");
+
+  // Clicks on the button shouldn't also count as clicks on the map underneath.
+  useEffect(() => {
+    if (ref.current) L.DomEvent.disableClickPropagation(ref.current);
+  }, []);
+
+  async function locate() {
+    setStatus("locating");
+    const loc = await onLocate();
+    if (loc) {
+      map.flyTo([loc.lat, loc.lng], Math.max(map.getZoom(), 16));
+      setStatus("idle");
+    } else {
+      setStatus("failed");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
+  }
+
+  return (
+    <div ref={ref} className="absolute right-2.5 top-2.5 z-[1000] flex flex-col items-end gap-1.5">
+      <button
+        type="button"
+        onClick={locate}
+        disabled={status === "locating"}
+        aria-label="Show my location"
+        title="Show my location"
+        className="flex h-11 w-11 items-center justify-center rounded-lg border-2 border-black/20 bg-white text-ink shadow-sm hover:bg-panel disabled:opacity-60"
+      >
+        <svg viewBox="0 0 24 24" className={`h-5 w-5 ${status === "locating" ? "animate-pulse" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </svg>
+      </button>
+      {status === "failed" && (
+        <p className="max-w-52 rounded-lg bg-ink px-2.5 py-1.5 text-xs text-white shadow">
+          {window.isSecureContext
+            ? "Couldn't get your location. Check the browser's location permission."
+            : "Location needs HTTPS or localhost. Use the “I'm near” picker instead."}
+        </p>
+      )}
+    </div>
+  );
 }
 
 function shortTitle(title: string): string {
@@ -31,7 +82,7 @@ function escapeHtml(s: string): string {
 
 // Pill-shaped pin ("Free · Desk" / "$25 · Chair"), anchored at its bottom centre.
 function pinIcon(l: Listing, selected: boolean): L.DivIcon {
-  const colour = l.type === "free" ? "bg-free" : "bg-sell";
+  const colour = TYPE_SOLID[l.type];
   const ring = selected ? "ring-2 ring-ink" : "";
   return L.divIcon({
     className: "",
@@ -43,7 +94,7 @@ function pinIcon(l: Listing, selected: boolean): L.DivIcon {
   });
 }
 
-export default function LeafletMap({ listings, userLoc, selectedId, onSelect, center, zoom = 15, className = "h-[560px]" }: MapProps) {
+export default function LeafletMap({ listings, userLoc, selectedId, onSelect, center, zoom = 15, className = "h-[560px]", onLocate }: MapProps) {
   // Next keeps visited pages alive and re-runs their effects when you navigate back. Leaflet
   // can't re-attach to a map it already tore down, so mount a brand-new map (new key, new DOM
   // node) every time effects start, and drop it when they stop.
@@ -69,6 +120,8 @@ export default function LeafletMap({ listings, userLoc, selectedId, onSelect, ce
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+
+          {onLocate && <LocateButton onLocate={onLocate} />}
 
           {userLoc && (
             <CircleMarker

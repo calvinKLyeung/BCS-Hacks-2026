@@ -4,6 +4,7 @@ import {
   TAG_LABELS,
   distanceLabel,
   priceLabel,
+  TYPE_BADGE,
   walkMinutes,
   type Condition,
   type Listing,
@@ -12,13 +13,8 @@ import {
 
 // Small badges shared by the card, item page and map info window.
 export function TypeBadge({ listing }: { listing: Pick<Listing, "type" | "price"> }) {
-  const free = listing.type === "free";
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-        free ? "bg-free-bg text-free-text" : "bg-sell-bg text-sell-text"
-      }`}
-    >
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TYPE_BADGE[listing.type]}`}>
       {priceLabel(listing)}
     </span>
   );
@@ -76,6 +72,7 @@ export default function ListingCard({ listing, aiPick, highlighted, onSelect }: 
           )}
         </div>
         <h3 className="mt-1 font-semibold leading-snug truncate">{listing.title}</h3>
+        {listing.trade_for && <p className="text-sm text-trade-text truncate">Looking for: {listing.trade_for}</p>}
         <p className="text-sm text-muted line-clamp-2">{listing.description}</p>
         <div className="mt-auto pt-1 flex items-center justify-between gap-2">
           <span className="text-xs text-muted truncate">{distanceLine(listing)}</span>

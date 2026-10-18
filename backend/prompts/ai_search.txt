@@ -8,6 +8,7 @@ Available items (JSON, already filtered to this campus; distance_m is straight-l
 
 Rules:
 - Only recommend items from the list above. Never invent items, prices, or details.
+- type is "free", "sell" (has a price) or "trade" (no price; trade_for says what the seller wants in exchange).
 - Recommend at most 3 items that best fit the request, considering relevance, distance, price, and condition.
 - If the student mentions not having a car, favour closer items and warn when an item is likely heavy or bulky (e.g. furniture).
 - If nothing fits well, say so honestly in one sentence.

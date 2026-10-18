@@ -47,9 +47,6 @@ async def not_configured(request: Request, exc: db.NotConfigured):
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[config.FRONTEND_URL],
-    # Also allow the frontend when opened from another device via this machine's IP.
-    # Safe for this app: auth is a bearer token, not cookies.
-    allow_origin_regex=r"^http://[^/]+:3000$",
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -77,6 +74,7 @@ def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> st
         price = round(data.price, 2)
     else:
         price = None
+    trade_for = (data.trade_for or "").strip() if data.type == "trade" else ""
 
     title = data.title.strip()
     if not title:
@@ -91,6 +89,7 @@ def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> st
         embedding = ai.embed(
             f"{title}. {data.description}. Tag: {data.tag}. "
             f"Condition: {data.condition}. Pickup: {point['name']}."
+            + (f" Trade for: {trade_for}." if trade_for else "")
         )
     except Exception as e:
         log.warning("Embedding failed, saving listing without it: %s", e)
@@ -100,6 +99,7 @@ def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> st
         "campus_id": config.CAMPUS_ID,
         "type": data.type,
         "price": price,
+        "trade_for": trade_for or None,
         "title": title,
         "description": data.description.strip(),
         "tag": data.tag,
@@ -158,7 +158,7 @@ def post_listing(data: ListingCreate, user: dict = Depends(get_current_user)):
 
 @app.get("/listings")
 def get_listings(
-    type: Optional[str] = Query(None, pattern="^(free|sell)$"),
+    type: Optional[str] = Query(None, pattern="^(free|sell|trade)$"),
     tag: Optional[str] = None,
     q: Optional[str] = None,
     lat: Optional[float] = None,

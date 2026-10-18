@@ -32,8 +32,9 @@ class ItemDraft(BaseModel):
 
 
 class ListingCreate(BaseModel):
-    type: Literal["free", "sell"]
+    type: Literal["free", "sell", "trade"]
     price: Optional[float] = None
+    trade_for: Optional[str] = Field(default=None, max_length=200)  # trade only: what the seller wants
     title: str = Field(min_length=1, max_length=80)
     description: str = Field(default="", max_length=1000)
     tag: Literal["course_material", "furniture", "decoration", "stationery", "other"]
@@ -64,6 +65,7 @@ class ListingOut(BaseModel):
     seller_name: str
     created_at: str
     distance_m: Optional[int] = None
+    trade_for: Optional[str] = None
     contact_email: Optional[str] = None  # only filled in for signed-in viewers
 
 
@@ -71,7 +73,7 @@ class SearchRequest(BaseModel):
     query: str = ""
     lat: Optional[float] = None
     lng: Optional[float] = None
-    type: Optional[Literal["free", "sell"]] = None
+    type: Optional[Literal["free", "sell", "trade"]] = None
     tag: Optional[str] = None
 
 

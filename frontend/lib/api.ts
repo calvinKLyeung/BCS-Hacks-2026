@@ -1,7 +1,8 @@
-import { forCurrentHost, supabase } from "./supabase";
+import { supabase, viaProxy } from "./supabase";
 import type { AnalyzeResponse, Listing, PickupPoint, PostType, SearchResponse, Tag } from "./types";
 
-const BASE = forCurrentHost(process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000");
+// The backend is reached through this site's /backend proxy (see next.config.ts).
+const BASE = "/backend";
 
 async function authHeader(): Promise<Record<string, string>> {
   const { data } = await supabase.auth.getSession();
@@ -30,9 +31,9 @@ async function request<T>(path: string, init: RequestInit = {}, auth = false): P
   return res.json();
 }
 
-// Uploaded photos are stored with the local storage address (127.0.0.1); make them load on other devices too.
+// Uploaded photos are stored with the local storage address (127.0.0.1:54321); load them through the proxy.
 function withPhotos<T extends Listing>(l: T): T {
-  return { ...l, photos: l.photos.map(forCurrentHost) };
+  return { ...l, photos: l.photos.map(viaProxy) };
 }
 
 function json(body: unknown): RequestInit {

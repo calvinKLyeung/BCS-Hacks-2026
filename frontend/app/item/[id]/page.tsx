@@ -92,6 +92,11 @@ function ItemDetail() {
           <ConditionBadge condition={listing.condition} />
         </div>
         <h1 className="text-2xl font-bold leading-tight">{listing.title}</h1>
+        {listing.trade_for && (
+          <p className="rounded-lg bg-trade-bg px-3 py-2 text-trade-text">
+            <span className="font-semibold">Looking for:</span> {listing.trade_for}
+          </p>
+        )}
         <p className="whitespace-pre-line">{listing.description}</p>
 
         {(listing.condition_reason || listing.visible_defects.length > 0) && (
@@ -121,6 +126,14 @@ function ItemDetail() {
           center={{ lat: listing.lat, lng: listing.lng }}
           zoom={16}
           className="h-56"
+          onLocate={async () => {
+            const loc = await getBrowserLocation(true);
+            if (loc) {
+              setUserLoc(loc);
+              getListing(id, loc).then(setListing).catch(() => {});
+            }
+            return loc;
+          }}
         />
 
         <div className="text-sm text-muted">Posted by {listing.seller_name}</div>

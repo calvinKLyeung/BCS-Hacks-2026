@@ -14,6 +14,7 @@ import {
   type AnalyzeResponse,
   type Condition,
   type PickupPoint,
+  TYPE_SOLID,
   type PostType,
   type Tag,
 } from "@/lib/types";
@@ -36,6 +37,7 @@ export default function SellPage() {
   const [tag, setTag] = useState<Tag>("other");
   const [condition, setCondition] = useState<Condition>("usable");
   const [price, setPrice] = useState("");
+  const [tradeFor, setTradeFor] = useState("");
   const [pickupId, setPickupId] = useState("");
   const [contactEmail, setContactEmail] = useState<string | null>(null); // null = use account email
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -96,6 +98,7 @@ export default function SellPage() {
       const listing = await createListing({
         type: postType,
         price: postType === "sell" ? priceNum : null,
+        trade_for: postType === "trade" ? tradeFor.trim() || null : null,
         title: title.trim(),
         description: description.trim(),
         tag,
@@ -124,17 +127,18 @@ export default function SellPage() {
       {/* 1. Post type */}
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-muted uppercase tracking-wide">1. Post type</h2>
-        <div className="grid grid-cols-2 rounded-xl border border-line p-1">
+        <div className="grid grid-cols-3 rounded-xl border border-line p-1">
           {([
             ["free", "Give away"],
             ["sell", "Sell"],
+            ["trade", "Trade"],
           ] as const).map(([v, label]) => (
             <button
               key={v}
               type="button"
               onClick={() => setPostType(v)}
               className={`min-h-11 rounded-lg font-medium ${
-                postType === v ? (v === "free" ? "bg-free text-white" : "bg-sell text-white") : ""
+                postType === v ? `${TYPE_SOLID[v]} text-white` : ""
               }`}
             >
               {label}
@@ -242,6 +246,19 @@ export default function SellPage() {
                   />
                 </div>
                 {errors.price && <p className="text-sm text-red-700">{errors.price}</p>}
+              </div>
+            )}
+            {postType === "trade" && (
+              <div className="space-y-1">
+                <label className="text-sm font-medium" htmlFor="tradeFor">Looking for (optional)</label>
+                <input
+                  id="tradeFor"
+                  value={tradeFor}
+                  maxLength={200}
+                  onChange={(e) => setTradeFor(e.target.value)}
+                  placeholder="e.g. a desk lamp, or CPSC 210 notes"
+                  className={inputClass}
+                />
               </div>
             )}
             <div className="space-y-1">
