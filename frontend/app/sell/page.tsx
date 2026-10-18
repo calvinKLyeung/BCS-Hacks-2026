@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BuildingPicker from "@/components/BuildingPicker";
@@ -42,6 +43,7 @@ export default function SellPage() {
   const [contactEmail, setContactEmail] = useState<string | null>(null); // null = use account email
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [posting, setPosting] = useState(false);
+  const [postedId, setPostedId] = useState<string | null>(null); // set once the listing is saved
   const [postError, setPostError] = useState("");
 
   useEffect(() => {
@@ -74,6 +76,14 @@ export default function SellPage() {
     setFiles([]);
     setErrors({});
     setPostError("");
+  }
+
+  function postAnother() {
+    startOver();
+    setPostedId(null);
+    setPrice("");
+    setTradeFor("");
+    setPickupId("");
   }
 
   async function post(e: React.FormEvent) {
@@ -109,6 +119,10 @@ export default function SellPage() {
         pickup_point_id: pickupId,
         contact_email: contact,
       });
+      // Saved: say so right away. Opening the item page can be slow (e.g. on a phone over the
+      // network), and Next keeps this page alive, so it must not stay stuck on "Posting…".
+      setPostedId(listing.id);
+      setPosting(false);
       router.push(`/item/${listing.id}`);
     } catch (e) {
       setPostError((e as Error).message);
@@ -282,12 +296,29 @@ export default function SellPage() {
             </div>
 
             {postError && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-800">{postError}</p>}
-            <button
-              disabled={posting || !!blocked}
-              className="w-full min-h-12 rounded-xl bg-brand text-white font-semibold disabled:opacity-50"
-            >
-              {posting ? "Posting…" : "Post item"}
-            </button>
+            {postedId ? (
+              <div className="rounded-xl bg-free-bg p-4 space-y-3 text-free-text">
+                <p className="font-semibold">Posted! Your listing is live.</p>
+                <div className="flex gap-2">
+                  <Link
+                    href={`/item/${postedId}`}
+                    className="flex-1 min-h-11 inline-flex items-center justify-center rounded-lg bg-brand text-white font-medium"
+                  >
+                    View listing
+                  </Link>
+                  <button type="button" onClick={postAnother} className="flex-1 min-h-11 rounded-lg border border-brand font-medium">
+                    Post another item
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                disabled={posting || !!blocked}
+                className="w-full min-h-12 rounded-xl bg-brand text-white font-semibold disabled:opacity-50"
+              >
+                {posting ? "Posting…" : "Post item"}
+              </button>
+            )}
           </form>
         </>
       )}
