@@ -30,6 +30,11 @@ async function request<T>(path: string, init: RequestInit = {}, auth = false): P
   return res.json();
 }
 
+// Uploaded photos are stored with the local storage address (127.0.0.1); make them load on other devices too.
+function withPhotos<T extends Listing>(l: T): T {
+  return { ...l, photos: l.photos.map(forCurrentHost) };
+}
+
 function json(body: unknown): RequestInit {
   return { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) };
 }
@@ -53,16 +58,16 @@ export function getPickupPoints() {
 export function getListings(f: { type?: PostType | null; tag?: Tag | null; q?: string; loc?: Loc | null }) {
   return request<{ items: Listing[] }>(
     `/listings${qs({ type: f.type, tag: f.tag, q: f.q, lat: f.loc?.lat, lng: f.loc?.lng })}`,
-  );
+  ).then((r) => ({ items: r.items.map(withPhotos) }));
 }
 
 // Sends the session token if signed in, so the seller's contact email is included.
 export function getListing(id: string, loc?: Loc | null) {
-  return request<Listing>(`/listings/${encodeURIComponent(id)}${qs({ lat: loc?.lat, lng: loc?.lng })}`, {}, true);
+  return request<Listing>(`/listings/${encodeURIComponent(id)}${qs({ lat: loc?.lat, lng: loc?.lng })}`, {}, true).then(withPhotos);
 }
 
 export function aiSearch(body: { query: string; lat?: number; lng?: number; type?: PostType | null; tag?: Tag | null }) {
-  return request<SearchResponse>("/ai-search", json(body));
+  return request<SearchResponse>("/ai-search", json(body)).then((r) => ({ ...r, items: r.items.map(withPhotos) }));
 }
 
 export function analyzePhotos(files: File[]) {
@@ -72,5 +77,5 @@ export function analyzePhotos(files: File[]) {
 }
 
 export function createListing(body: Omit<Listing, "id" | "pickup_name" | "lat" | "lng" | "seller_id" | "seller_name" | "created_at" | "distance_m">) {
-  return request<Listing>("/listings", json(body), true);
+  return request<Listing>("/listings", json(body), true).then(withPhotos);
 }
