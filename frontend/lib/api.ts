@@ -56,8 +56,9 @@ export function getListings(f: { type?: PostType | null; tag?: Tag | null; q?: s
   );
 }
 
+// Sends the session token if signed in, so the seller's contact email is included.
 export function getListing(id: string, loc?: Loc | null) {
-  return request<Listing>(`/listings/${encodeURIComponent(id)}${qs({ lat: loc?.lat, lng: loc?.lng })}`);
+  return request<Listing>(`/listings/${encodeURIComponent(id)}${qs({ lat: loc?.lat, lng: loc?.lng })}`, {}, true);
 }
 
 export function aiSearch(body: { query: string; lat?: number; lng?: number; type?: PostType | null; tag?: Tag | null }) {
@@ -72,8 +73,4 @@ export function analyzePhotos(files: File[]) {
 
 export function createListing(body: Omit<Listing, "id" | "pickup_name" | "lat" | "lng" | "seller_id" | "seller_name" | "created_at" | "distance_m">) {
   return request<Listing>("/listings", json(body), true);
-}
-
-export function contactSeller(listing_id: string, message: string) {
-  return request<{ ok: boolean }>("/contact", json({ listing_id, message }), true);
 }

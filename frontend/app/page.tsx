@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import AIAnswer from "@/components/AIAnswer";
 import AISearchBar from "@/components/AISearchBar";
+import BuildingPicker from "@/components/BuildingPicker";
 import Filters from "@/components/Filters";
 import ListingCard from "@/components/ListingCard";
 import MapView from "@/components/MapView";
@@ -115,23 +116,20 @@ export default function BrowsePage() {
       <Filters type={type} tag={tag} onType={setType} onTag={setTag} />
 
       {geoDenied && points.length > 0 && (
-        <label className="flex items-center gap-2 text-sm text-muted">
-          I&apos;m near:
-          <select
-            value={fallbackId}
-            onChange={(e) => {
-              setFallbackId(e.target.value);
-              saveFallbackPointId(e.target.value);
-            }}
-            className="min-h-11 rounded-lg border border-line bg-white px-2 text-ink"
-          >
-            {points.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="flex items-center gap-2 text-sm text-muted">
+          <label htmlFor="near" className="shrink-0">I&apos;m near:</label>
+          <div className="w-full max-w-xs text-ink">
+            <BuildingPicker
+              id="near"
+              points={points}
+              value={fallbackId}
+              onChange={(id) => {
+                setFallbackId(id);
+                saveFallbackPointId(id);
+              }}
+            />
+          </div>
+        </div>
       )}
 
       <AIAnswer answer={answer} />

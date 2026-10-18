@@ -20,7 +20,7 @@ PHOTO_DIR = os.path.join(ROOT, "frontend", "public", "demo")
 SEED_SQL = os.path.join(ROOT, "supabase", "seed.sql")
 COLUMNS = ["id", "seller_id", "campus_id", "type", "price", "title", "description", "tag", "condition",
            "condition_reason", "visible_defects", "photos", "pickup_point_id", "pickup_name", "lat", "lng",
-           "embedding", "status", "created_at"]
+           "contact_email", "embedding", "status", "created_at"]
 
 
 def lit(v) -> str:

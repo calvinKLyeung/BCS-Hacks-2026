@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import BuildingPicker from "@/components/BuildingPicker";
 import { ConditionBadge } from "@/components/ListingCard";
 import PhotoUploader from "@/components/PhotoUploader";
 import TagPicker from "@/components/TagPicker";
@@ -36,6 +37,7 @@ export default function SellPage() {
   const [condition, setCondition] = useState<Condition>("usable");
   const [price, setPrice] = useState("");
   const [pickupId, setPickupId] = useState("");
+  const [contactEmail, setContactEmail] = useState<string | null>(null); // null = use account email
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [posting, setPosting] = useState(false);
   const [postError, setPostError] = useState("");
@@ -82,7 +84,9 @@ export default function SellPage() {
     const priceNum = Number(price);
     if (postType === "sell" && (price.trim() === "" || isNaN(priceNum) || priceNum < 0))
       errs.price = "Enter a price of 0 or more.";
-    if (!pickupId) errs.pickup = "Choose a pickup spot.";
+    if (!pickupId) errs.pickup = "Choose a pickup building.";
+    const contact = (contactEmail ?? session?.user.email ?? "").trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) errs.contact = "Enter a valid email.";
     setErrors(errs);
     if (Object.keys(errs).length) return;
 
@@ -100,6 +104,7 @@ export default function SellPage() {
         visible_defects: analysis.draft.visible_defects,
         photos: analysis.photos,
         pickup_point_id: pickupId,
+        contact_email: contact,
       });
       router.push(`/item/${listing.id}`);
     } catch (e) {
@@ -240,15 +245,23 @@ export default function SellPage() {
               </div>
             )}
             <div className="space-y-1">
-              <label className="text-sm font-medium" htmlFor="pickup">Pickup spot</label>
-              <select id="pickup" value={pickupId} onChange={(e) => setPickupId(e.target.value)} className={inputClass}>
-                <option value="">Choose a spot…</option>
-                {points.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
-                ))}
-              </select>
-              <p className="text-xs text-muted">Your exact address is never shown. Pins use this pickup spot.</p>
+              <label className="text-sm font-medium" htmlFor="pickup">Pickup building</label>
+              <BuildingPicker id="pickup" points={points} value={pickupId} onChange={setPickupId} />
+              <p className="text-xs text-muted">The map pin goes on this building. Your exact address is never shown.</p>
               {errors.pickup && <p className="text-sm text-red-700">{errors.pickup}</p>}
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium" htmlFor="contact">Contact email</label>
+              <input
+                id="contact"
+                type="email"
+                autoComplete="email"
+                value={contactEmail ?? session.user.email ?? ""}
+                onChange={(e) => setContactEmail(e.target.value)}
+                className={inputClass}
+              />
+              <p className="text-xs text-muted">Buyers who are signed in will see this and email you directly.</p>
+              {errors.contact && <p className="text-sm text-red-700">{errors.contact}</p>}
             </div>
 
             {postError && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-800">{postError}</p>}

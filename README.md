@@ -12,19 +12,19 @@ BCSHacks2026/
 │   ├── app/
 │   │   ├── page.tsx           Browse: AI search, filters, map + list
 │   │   ├── sell/page.tsx      Post an item (photos → AI draft → form)
-│   │   ├── item/[id]/page.tsx Item detail + contact seller
-│   │   └── login/page.tsx     Magic-link sign-in
-│   ├── components/            Header, MapView/LeafletMap, ListingCard, ContactModal, ...
+│   │   ├── item/[id]/page.tsx Item detail + contact seller (opens the buyer's email app)
+│   │   └── login/page.tsx     Email + password sign-in / sign-up
+│   ├── components/            Header, MapView/LeafletMap, BuildingPicker, ListingCard, ContactModal, ...
 │   ├── lib/                   api.ts (backend calls), supabase.ts (auth), location.ts, types.ts
 │   └── public/demo/           Photos for the demo listings
 │
-├── backend/                   FastAPI server (all data, uploads, AI and email)
+├── backend/                   FastAPI server (all data, uploads and AI)
 │   ├── main.py                All routes
 │   ├── ai.py                  Photo analysis + search answers (Ollama), embeddings (local model)
 │   ├── db.py                  Every database query
 │   ├── auth.py                Checks the sign-in token and campus email domain
 │   ├── storage.py             Resizes and uploads photos
-│   ├── email_service.py       Contact-seller emails (Resend, or printed to console)
+│   ├── ubc_buildings.json     Pickup buildings (from OpenStreetMap)
 │   ├── config.py, geo.py, models.py
 │   └── prompts/               The AI prompts
 │
@@ -119,8 +119,6 @@ cp backend/.env.example backend/.env
 cp frontend/.env.local.example frontend/.env.local
 ```
 
-Optional: set `RESEND_API_KEY` in `backend/.env` to send real emails. Without it, emails are printed in the backend terminal.
-
 ## 3. Run
 
 Two terminals, from the repo root:
@@ -136,10 +134,10 @@ cd frontend
 npm run dev                          # open http://localhost:3000
 ```
 
-- Sign-in emails land in the local test inbox: http://127.0.0.1:54324
+- Create an account on the Sign in page with a UBC email and a password (no email verification locally).
 - Database UI: http://127.0.0.1:54323
 
-**Open it on your phone or another laptop:** use the `Network:` URL that `npm run dev` prints (e.g. `http://192.168.1.5:3000`). Both devices must be on the same Wi-Fi, and that network must allow devices to reach each other (some campus networks block this; a phone hotspot works). Browsing, AI search and the map work from other devices. Sign-in only works on the computer running the app, because local Supabase's sign-in links point at `127.0.0.1`. Browsers also only share your location over `localhost` or HTTPS, so other devices use the "I'm near" picker instead.
+**Open it on your phone or another laptop:** use the `Network:` URL that `npm run dev` prints (e.g. `http://192.168.1.5:3000`). Both devices must be on the same Wi-Fi, and that network must allow devices to reach each other (some campus networks block this; a phone hotspot works). Everything works from other devices, including sign-in. Browsers also only share your location over `localhost` or HTTPS, so other devices use the "I'm near" picker instead.
 
 ## Demo data
 

@@ -42,6 +42,7 @@ class ListingCreate(BaseModel):
     visible_defects: list[str] = []
     photos: list[str] = Field(min_length=1, max_length=4)
     pickup_point_id: str
+    contact_email: Optional[str] = Field(default=None, max_length=254)  # defaults to the account email
 
 
 class ListingOut(BaseModel):
@@ -63,6 +64,7 @@ class ListingOut(BaseModel):
     seller_name: str
     created_at: str
     distance_m: Optional[int] = None
+    contact_email: Optional[str] = None  # only filled in for signed-in viewers
 
 
 class SearchRequest(BaseModel):
@@ -78,7 +80,3 @@ class SearchResponse(BaseModel):
     recommended_ids: list[str] = []
     items: list[ListingOut]
 
-
-class ContactRequest(BaseModel):
-    listing_id: str
-    message: str = Field(min_length=1, max_length=1000)

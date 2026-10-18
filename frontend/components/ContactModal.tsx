@@ -2,30 +2,23 @@
 
 import { useState } from "react";
 import { TypeBadge } from "@/components/ListingCard";
-import { contactSeller } from "@/lib/api";
 import type { Listing } from "@/lib/types";
 
-export default function ContactModal({ listing, onClose }: { listing: Listing; onClose: () => void }) {
+/** Shows the seller's contact email and opens the buyer's own email app with a prefilled message. */
+export default function ContactModal({ listing, email, onClose }: { listing: Listing; email: string; onClose: () => void }) {
   const [message, setMessage] = useState(
     `Hi! Is the "${listing.title}" still available? I could pick it up at ${listing.pickup_name}.`,
   );
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
-  const [sent, setSent] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  async function send() {
-    if (!message.trim()) return setError("Write a message first.");
-    setSending(true);
-    setError("");
+  const subject = `CampusSwap: ${listing.title}`;
+  const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+  async function copy() {
     try {
-      await contactSeller(listing.id, message.trim());
-      setSent(true);
-      setTimeout(onClose, 1500);
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setSending(false);
-    }
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+    } catch {} // clipboard needs HTTPS or localhost; the address is visible anyway
   }
 
   return (
@@ -52,34 +45,30 @@ export default function ContactModal({ listing, onClose }: { listing: Listing; o
           </div>
         </div>
 
-        {sent ? (
-          <p className="rounded-lg bg-free-bg p-4 text-center font-medium text-free-text">Message sent!</p>
-        ) : (
-          <>
-            <textarea
-              rows={5}
-              maxLength={1000}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              aria-label="Message"
-              className="w-full rounded-lg border border-line p-3 focus:outline-2 focus:outline-brand"
-            />
-            <p className="text-xs text-muted">Sent to the seller by email. They&apos;ll reply to your email directly.</p>
-            {error && <p className="text-sm text-red-700">{error}</p>}
-            <div className="flex gap-2">
-              <button onClick={onClose} className="flex-1 min-h-11 rounded-lg border border-line">
-                Cancel
-              </button>
-              <button
-                onClick={send}
-                disabled={sending}
-                className="flex-1 min-h-11 rounded-lg bg-brand text-white font-medium disabled:opacity-60"
-              >
-                {sending ? "Sending…" : "Send"}
-              </button>
-            </div>
-          </>
-        )}
+        <div className="flex items-center justify-between gap-2 rounded-lg bg-panel px-3 py-2">
+          <span className="text-sm break-all">{email}</span>
+          <button onClick={copy} className="shrink-0 min-h-11 px-3 text-sm font-medium text-brand">
+            {copied ? "Copied" : "Copy"}
+          </button>
+        </div>
+
+        <textarea
+          rows={5}
+          maxLength={1000}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          aria-label="Message"
+          className="w-full rounded-lg border border-line p-3 focus:outline-2 focus:outline-brand"
+        />
+        <p className="text-xs text-muted">Opens your email app with this message. The seller replies to you directly.</p>
+        <div className="flex gap-2">
+          <button onClick={onClose} className="flex-1 min-h-11 rounded-lg border border-line">
+            Cancel
+          </button>
+          <a href={mailto} className="flex-1 min-h-11 inline-flex items-center justify-center rounded-lg bg-brand text-white font-medium">
+            Open email app
+          </a>
+        </div>
       </div>
     </div>
   );

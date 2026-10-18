@@ -70,7 +70,8 @@ def main():
         print(f"No images found in {PHOTOS_DIR}")
         return
 
-    seller_id = "dry-run" if args.dry_run else get_seed_user(args.email.lower())
+    email = args.email.lower()
+    seller_id = "dry-run" if args.dry_run else get_seed_user(email)
     inserted = 0
     for files in items:
         label = os.path.relpath(files[0] if len(files) == 1 else os.path.dirname(files[0]), PHOTOS_DIR)
@@ -111,7 +112,7 @@ def main():
                 photos=urls,
                 pickup_point_id=point["id"],
             )
-            create_listing(seller_id, data)
+            create_listing(seller_id, email, data)
             inserted += 1
             print(f"OK    {label}: {draft.title} | {draft.tag} | {draft.condition} | "
                   f"{price_label} | {point['name']}")

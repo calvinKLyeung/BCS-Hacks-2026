@@ -1,0 +1,2642 @@
+[
+{
+"id": "a1-cassiar",
+"name": "A1 Cassiar",
+"lat": 49.26037,
+"lng": -123.24652
+},
+{
+"id": "a2-monashee",
+"name": "A2 Monashee",
+"lat": 49.25981,
+"lng": -123.24733
+},
+{
+"id": "a3-monashee",
+"name": "A3 Monashee",
+"lat": 49.26012,
+"lng": -123.24749
+},
+{
+"id": "a4-cassiar",
+"name": "A4 Cassiar",
+"lat": 49.26028,
+"lng": -123.24695
+},
+{
+"id": "abdul-ladha-science-student-centre",
+"name": "Abdul Ladha Science Student Centre",
+"lat": 49.26608,
+"lng": -123.25137
+},
+{
+"id": "academy",
+"name": "Academy",
+"lat": 49.2556,
+"lng": -123.23314
+},
+{
+"id": "acadia",
+"name": "Acadia",
+"lat": 49.26089,
+"lng": -123.23472
+},
+{
+"id": "acadia-community-centre",
+"name": "Acadia Community Centre",
+"lat": 49.26263,
+"lng": -123.23736
+},
+{
+"id": "acadia-faculty-row-housing",
+"name": "Acadia Faculty Row Housing",
+"lat": 49.26531,
+"lng": -123.23899
+},
+{
+"id": "acadia-high-rise",
+"name": "Acadia High Rise",
+"lat": 49.26232,
+"lng": -123.23685
+},
+{
+"id": "acadia-house",
+"name": "Acadia House",
+"lat": 49.26308,
+"lng": -123.23612
+},
+{
+"id": "accelerator-experimental-building",
+"name": "Accelerator & Experimental Building",
+"lat": 49.24724,
+"lng": -123.22942
+},
+{
+"id": "advanced-rare-isotope-laboratory",
+"name": "Advanced Rare IsotopE Laboratory",
+"lat": 49.2477,
+"lng": -123.23003
+},
+{
+"id": "aldyen-hamber-house",
+"name": "Aldyen Hamber House",
+"lat": 49.26527,
+"lng": -123.2588
+},
+{
+"id": "allard-school-of-law",
+"name": "Allard School of Law",
+"lat": 49.27004,
+"lng": -123.25332
+},
+{
+"id": "alpha-delta-phi",
+"name": "Alpha Delta Phi",
+"lat": 49.25956,
+"lng": -123.23861
+},
+{
+"id": "alpine-garden",
+"name": "Alpine Garden",
+"lat": 49.25364,
+"lng": -123.24584
+},
+{
+"id": "ambulance-station",
+"name": "Ambulance Station",
+"lat": 49.26324,
+"lng": -123.2436
+},
+{
+"id": "ams-nest-student-union-building",
+"name": "AMS Nest (Student Union Building)",
+"lat": 49.26658,
+"lng": -123.24979
+},
+{
+"id": "anne-wesbrook-hall",
+"name": "Anne Wesbrook Hall",
+"lat": 49.27007,
+"lng": -123.25798
+},
+{
+"id": "anthropology-and-sociology-building",
+"name": "Anthropology And Sociology Building",
+"lat": 49.27027,
+"lng": -123.25749
+},
+{
+"id": "aquatic-ecosystems-research-laboratory",
+"name": "Aquatic Ecosystems Research Laboratory",
+"lat": 49.26374,
+"lng": -123.25099
+},
+{
+"id": "arbutus-house",
+"name": "Arbutus House",
+"lat": 49.26325,
+"lng": -123.25596
+},
+{
+"id": "argyll-house-east",
+"name": "Argyll House East",
+"lat": 49.27142,
+"lng": -123.24956
+},
+{
+"id": "argyll-house-west",
+"name": "Argyll House West",
+"lat": 49.27078,
+"lng": -123.25136
+},
+{
+"id": "ariel-operations",
+"name": "Ariel operations",
+"lat": 49.24715,
+"lng": -123.23086
+},
+{
+"id": "arts-student-centre",
+"name": "Arts Student Centre",
+"lat": 49.26929,
+"lng": -123.25308
+},
+{
+"id": "asian-centre",
+"name": "Asian Centre",
+"lat": 49.26675,
+"lng": -123.25871
+},
+{
+"id": "audain-art-center",
+"name": "Audain Art Center",
+"lat": 49.26385,
+"lng": -123.25447
+},
+{
+"id": "auditorium-annex-offices",
+"name": "Auditorium Annex Offices",
+"lat": 49.26643,
+"lng": -123.25671
+},
+{
+"id": "axis",
+"name": "Axis",
+"lat": 49.27009,
+"lng": -123.25218
+},
+{
+"id": "b-c-binning-studios",
+"name": "B.C. Binning Studios",
+"lat": 49.26461,
+"lng": -123.25487
+},
+{
+"id": "b1-coast",
+"name": "B1 Coast",
+"lat": 49.25885,
+"lng": -123.25016
+},
+{
+"id": "b2-selkirk",
+"name": "B2 Selkirk",
+"lat": 49.25909,
+"lng": -123.24946
+},
+{
+"id": "b3-selkirk",
+"name": "B3 Selkirk",
+"lat": 49.25932,
+"lng": -123.24976
+},
+{
+"id": "b4-coast",
+"name": "B4 Coast",
+"lat": 49.25915,
+"lng": -123.25032
+},
+{
+"id": "bachra",
+"name": "Bachra",
+"lat": 49.26569,
+"lng": -123.24103
+},
+{
+"id": "badge-room",
+"name": "Badge Room",
+"lat": 49.2475,
+"lng": -123.23031
+},
+{
+"id": "barish",
+"name": "Barish",
+"lat": 49.26046,
+"lng": -123.23551
+},
+{
+"id": "bartlett-house",
+"name": "Bartlett House",
+"lat": 49.26036,
+"lng": -123.25114
+},
+{
+"id": "beaty-biodiversity-museum",
+"name": "Beaty Biodiversity Museum",
+"lat": 49.26321,
+"lng": -123.25093
+},
+{
+"id": "berwick-memorial-centre",
+"name": "Berwick Memorial Centre",
+"lat": 49.26066,
+"lng": -123.23902
+},
+{
+"id": "beta-theta-pi-ubc",
+"name": "Beta Theta Pi UBC",
+"lat": 49.26482,
+"lng": -123.24353
+},
+{
+"id": "binning-tower",
+"name": "Binning Tower",
+"lat": 49.25543,
+"lng": -123.23138
+},
+{
+"id": "binning-townhouses",
+"name": "Binning Townhouses",
+"lat": 49.25536,
+"lng": -123.23187
+},
+{
+"id": "bioenergy-research-demonstration-facility",
+"name": "Bioenergy Research & Demonstration Facility",
+"lat": 49.2603,
+"lng": -123.25452
+},
+{
+"id": "biological-sciences-building",
+"name": "Biological Sciences Building",
+"lat": 49.26444,
+"lng": -123.25132
+},
+{
+"id": "biomedical-research-centre",
+"name": "Biomedical Research Centre",
+"lat": 49.26412,
+"lng": -123.24719
+},
+{
+"id": "botanical-garden-centre-lookout-tower",
+"name": "Botanical Garden Centre - Lookout Tower",
+"lat": 49.25408,
+"lng": -123.25164
+},
+{
+"id": "botanical-garden-nursery-greenhouse",
+"name": "Botanical Garden Nursery - Greenhouse",
+"lat": 49.24964,
+"lng": -123.2348
+},
+{
+"id": "botanical-garden-nursery-greenhouse-workshop",
+"name": "Botanical Garden Nursery - Greenhouse& Workshop",
+"lat": 49.24965,
+"lng": -123.23422
+},
+{
+"id": "botanical-garden-nursery-lunchroom",
+"name": "Botanical Garden Nursery - Lunchroom",
+"lat": 49.24971,
+"lng": -123.23439
+},
+{
+"id": "botanical-garden-nursery-shadehouse",
+"name": "Botanical Garden Nursery - Shadehouse",
+"lat": 49.24928,
+"lng": -123.23512
+},
+{
+"id": "botanical-garden-nursery-workshop",
+"name": "Botanical Garden Nursery - Workshop",
+"lat": 49.24949,
+"lng": -123.23451
+},
+{
+"id": "braeburn-house",
+"name": "Braeburn House",
+"lat": 49.26079,
+"lng": -123.25186
+},
+{
+"id": "brimacombe-building",
+"name": "Brimacombe Building",
+"lat": 49.26185,
+"lng": -123.24802
+},
+{
+"id": "brock-commons-tallwood-house",
+"name": "Brock Commons - Tallwood House",
+"lat": 49.2695,
+"lng": -123.25138
+},
+{
+"id": "brock-commons-north",
+"name": "Brock Commons North",
+"lat": 49.26958,
+"lng": -123.25264
+},
+{
+"id": "brock-commons-south",
+"name": "Brock Commons South",
+"lat": 49.26908,
+"lng": -123.2524
+},
+{
+"id": "brock-hall",
+"name": "Brock Hall",
+"lat": 49.26863,
+"lng": -123.2521
+},
+{
+"id": "buchanan-building-block-a",
+"name": "Buchanan Building Block A",
+"lat": 49.26845,
+"lng": -123.25498
+},
+{
+"id": "buchanan-building-block-b",
+"name": "Buchanan Building Block B",
+"lat": 49.26811,
+"lng": -123.25472
+},
+{
+"id": "buchanan-building-block-c",
+"name": "Buchanan Building Block C",
+"lat": 49.26874,
+"lng": -123.25433
+},
+{
+"id": "buchanan-building-block-d",
+"name": "Buchanan Building Block D",
+"lat": 49.26926,
+"lng": -123.25429
+},
+{
+"id": "buchanan-building-block-e",
+"name": "Buchanan Building Block E",
+"lat": 49.2691,
+"lng": -123.25372
+},
+{
+"id": "buchanan-tower",
+"name": "Buchanan Tower",
+"lat": 49.26858,
+"lng": -123.25345
+},
+{
+"id": "building-a-north",
+"name": "Building A North",
+"lat": 49.27114,
+"lng": -123.25564
+},
+{
+"id": "building-a-south",
+"name": "Building A South",
+"lat": 49.27086,
+"lng": -123.25527
+},
+{
+"id": "c-c-s-administration",
+"name": "C.C.S Administration",
+"lat": 49.26091,
+"lng": -123.23423
+},
+{
+"id": "c-k-choi-building-for-the-institute-for-asian-research",
+"name": "C.K. Choi Building For The Institute For Asian Research",
+"lat": 49.26726,
+"lng": -123.25798
+},
+{
+"id": "c1-hazelton",
+"name": "C1 Hazelton",
+"lat": 49.25946,
+"lng": -123.25109
+},
+{
+"id": "c2-hazelton",
+"name": "C2 Hazelton",
+"lat": 49.2595,
+"lng": -123.25059
+},
+{
+"id": "campbell-building",
+"name": "Campbell Building",
+"lat": 49.25388,
+"lng": -123.25111
+},
+{
+"id": "campus-community-planning-1",
+"name": "Campus & Community Planning 1",
+"lat": 49.26236,
+"lng": -123.2532
+},
+{
+"id": "campus-community-planning-2",
+"name": "Campus & Community Planning 2",
+"lat": 49.26256,
+"lng": -123.25339
+},
+{
+"id": "campus-energy-center",
+"name": "Campus Energy Center",
+"lat": 49.26166,
+"lng": -123.24506
+},
+{
+"id": "carey-centre",
+"name": "Carey Centre",
+"lat": 49.27153,
+"lng": -123.2489
+},
+{
+"id": "cariboo-house",
+"name": "Cariboo House",
+"lat": 49.26373,
+"lng": -123.25899
+},
+{
+"id": "carr",
+"name": "Carr",
+"lat": 49.26584,
+"lng": -123.24052
+},
+{
+"id": "cascara-house",
+"name": "Cascara House",
+"lat": 49.25847,
+"lng": -123.24967
+},
+{
+"id": "cea-kiln",
+"name": "Cea Kiln",
+"lat": 49.25677,
+"lng": -123.24555
+},
+{
+"id": "cecil-green-park-coach-house",
+"name": "Cecil Green Park Coach House",
+"lat": 49.271,
+"lng": -123.25847
+},
+{
+"id": "cecil-green-park-house",
+"name": "Cecil Green Park House",
+"lat": 49.27138,
+"lng": -123.25771
+},
+{
+"id": "cecil-green-park-squash-court",
+"name": "Cecil Green Park Squash Court",
+"lat": 49.27142,
+"lng": -123.25706
+},
+{
+"id": "cedar-house",
+"name": "Cedar House",
+"lat": 49.26425,
+"lng": -123.25632
+},
+{
+"id": "central",
+"name": "Central",
+"lat": 49.26635,
+"lng": -123.24726
+},
+{
+"id": "centre-for-advanced-wood-processing",
+"name": "Centre For Advanced Wood Processing",
+"lat": 49.26081,
+"lng": -123.24732
+},
+{
+"id": "centre-for-interactive-research-on-sustainability",
+"name": "Centre for Interactive Research on Sustainability",
+"lat": 49.26204,
+"lng": -123.25308
+},
+{
+"id": "centre-of-coal-and-mineral-processing",
+"name": "Centre Of Coal And Mineral Processing",
+"lat": 49.26113,
+"lng": -123.2521
+},
+{
+"id": "chan-centre-for-the-performing-arts",
+"name": "Chan Centre for the Performing Arts",
+"lat": 49.26974,
+"lng": -123.25503
+},
+{
+"id": "chan-gunn-pavilion",
+"name": "Chan Gunn Pavilion",
+"lat": 49.26094,
+"lng": -123.24166
+},
+{
+"id": "chancellor-hall",
+"name": "Chancellor Hall",
+"lat": 49.27191,
+"lng": -123.25048
+},
+{
+"id": "chancellor-house",
+"name": "Chancellor House",
+"lat": 49.27155,
+"lng": -123.25147
+},
+{
+"id": "chatham",
+"name": "Chatham",
+"lat": 49.2587,
+"lng": -123.23617
+},
+{
+"id": "chaucer-hall",
+"name": "Chaucer Hall",
+"lat": 49.2643,
+"lng": -123.24297
+},
+{
+"id": "chemical-and-biological-engineering-building",
+"name": "Chemical and Biological Engineering Building",
+"lat": 49.2625,
+"lng": -123.24711
+},
+{
+"id": "chemistry-building",
+"name": "Chemistry Building",
+"lat": 49.26603,
+"lng": -123.2527
+},
+{
+"id": "chemistry-physics-building",
+"name": "Chemistry Physics Building",
+"lat": 49.26574,
+"lng": -123.25153
+},
+{
+"id": "civil-and-mechanical-engineering-building",
+"name": "Civil And Mechanical Engineering Building",
+"lat": 49.2625,
+"lng": -123.24894
+},
+{
+"id": "civil-and-mechanical-lab",
+"name": "Civil And Mechanical Lab",
+"lat": 49.26304,
+"lng": -123.24942
+},
+{
+"id": "civil-and-mechanical-structures-lab",
+"name": "Civil And Mechanical Structures Lab",
+"lat": 49.26339,
+"lng": -123.24927
+},
+{
+"id": "clements-green",
+"name": "Clements Green",
+"lat": 49.2582,
+"lng": -123.2458
+},
+{
+"id": "coast-east",
+"name": "Coast East",
+"lat": 49.27104,
+"lng": -123.25254
+},
+{
+"id": "coast-townhouses",
+"name": "Coast Townhouses",
+"lat": 49.27105,
+"lng": -123.25305
+},
+{
+"id": "coast-west",
+"name": "Coast West",
+"lat": 49.27074,
+"lng": -123.2532
+},
+{
+"id": "colonial-house",
+"name": "Colonial House",
+"lat": 49.26629,
+"lng": -123.23774
+},
+{
+"id": "compressor-building",
+"name": "Compressor Building",
+"lat": 49.24666,
+"lng": -123.22992
+},
+{
+"id": "continuing-studies-building",
+"name": "Continuing Studies Building",
+"lat": 49.26334,
+"lng": -123.25505
+},
+{
+"id": "coquihalla-common-block",
+"name": "Coquihalla Common Block",
+"lat": 49.25802,
+"lng": -123.25303
+},
+{
+"id": "corpus-christi-college",
+"name": "Corpus Christi College",
+"lat": 49.27236,
+"lng": -123.24936
+},
+{
+"id": "corus",
+"name": "Corus",
+"lat": 49.27062,
+"lng": -123.24938
+},
+{
+"id": "cunningham-building",
+"name": "Cunningham Building",
+"lat": 49.26476,
+"lng": -123.24875
+},
+{
+"id": "cypress-house",
+"name": "Cypress House",
+"lat": 49.25193,
+"lng": -123.23473
+},
+{
+"id": "c-sna-m-house",
+"name": "c\u0313\u0259sna\u0294\u0259m House",
+"lat": 49.25688,
+"lng": -123.25174
+},
+{
+"id": "dahlia-house",
+"name": "Dahlia House",
+"lat": 49.25214,
+"lng": -123.234
+},
+{
+"id": "david-strangway-building",
+"name": "David Strangway Building",
+"lat": 49.26583,
+"lng": -123.24614
+},
+{
+"id": "delta-kappa-epsilon",
+"name": "Delta Kappa Epsilon",
+"lat": 49.25939,
+"lng": -123.23906
+},
+{
+"id": "dene-house",
+"name": "Dene House",
+"lat": 49.25871,
+"lng": -123.25354
+},
+{
+"id": "design-office",
+"name": "Design Office",
+"lat": 49.24662,
+"lng": -123.23061
+},
+{
+"id": "detwiller-pavilion",
+"name": "Detwiller Pavilion",
+"lat": 49.26357,
+"lng": -123.24448
+},
+{
+"id": "djavad-mowafaghian-centre-for-brain-health",
+"name": "Djavad Mowafaghian Centre for Brain Health",
+"lat": 49.26432,
+"lng": -123.24457
+},
+{
+"id": "donald-rix-building",
+"name": "Donald Rix Building",
+"lat": 49.26197,
+"lng": -123.2463
+},
+{
+"id": "dorothy-mawdsley-house",
+"name": "Dorothy Mawdsley House",
+"lat": 49.26486,
+"lng": -123.25952
+},
+{
+"id": "dorothy-somerset-studios",
+"name": "Dorothy Somerset Studios",
+"lat": 49.2647,
+"lng": -123.25459
+},
+{
+"id": "doug-mitchell-thunderbird-winter-sports-centre",
+"name": "Doug Mitchell Thunderbird Winter Sports Centre",
+"lat": 49.26061,
+"lng": -123.24208
+},
+{
+"id": "douglas-t-kenny-building",
+"name": "Douglas T. Kenny Building",
+"lat": 49.26332,
+"lng": -123.25384
+},
+{
+"id": "e-house",
+"name": "E-House",
+"lat": 49.26145,
+"lng": -123.24402
+},
+{
+"id": "earth-ocean-sciences-main",
+"name": "Earth & Ocean Sciences - Main",
+"lat": 49.26257,
+"lng": -123.25253
+},
+{
+"id": "earth-ocean-sciences-south",
+"name": "Earth & Ocean Sciences - South",
+"lat": 49.26216,
+"lng": -123.25227
+},
+{
+"id": "earth-sciences-building",
+"name": "Earth Sciences Building",
+"lat": 49.26296,
+"lng": -123.25221
+},
+{
+"id": "earthquake-engineering-research-facility",
+"name": "Earthquake Engineering Research Facility",
+"lat": 49.26345,
+"lng": -123.24895
+},
+{
+"id": "east-tower",
+"name": "East Tower",
+"lat": 49.26964,
+"lng": -123.24917
+},
+{
+"id": "eaton",
+"name": "Eaton",
+"lat": 49.25347,
+"lng": -123.23176
+},
+{
+"id": "education-library",
+"name": "Education Library",
+"lat": 49.26378,
+"lng": -123.25335
+},
+{
+"id": "electrolyzer",
+"name": "Electrolyzer",
+"lat": 49.26101,
+"lng": -123.24411
+},
+{
+"id": "electron-hall",
+"name": "Electron Hall",
+"lat": 49.24718,
+"lng": -123.2299
+},
+{
+"id": "engineering-student-centre",
+"name": "Engineering Student Centre",
+"lat": 49.2622,
+"lng": -123.24929
+},
+{
+"id": "entrance-greenwood-commons",
+"name": "Entrance (Greenwood Commons)",
+"lat": 49.26095,
+"lng": -123.24059
+},
+{
+"id": "esse",
+"name": "Esse",
+"lat": 49.27122,
+"lng": -123.24835
+},
+{
+"id": "eton",
+"name": "Eton",
+"lat": 49.25343,
+"lng": -123.23055
+},
+{
+"id": "evolve",
+"name": "Evolve",
+"lat": 49.25233,
+"lng": -123.23329
+},
+{
+"id": "exchange-residence",
+"name": "Exchange Residence",
+"lat": 49.2685,
+"lng": -123.24781
+},
+{
+"id": "faculty-staff-housing-larkspur-house",
+"name": "Faculty & Staff Housing - Larkspur House",
+"lat": 49.25356,
+"lng": -123.23401
+},
+{
+"id": "fairview",
+"name": "Fairview Crescent",
+"lat": 49.264,
+"lng": -123.2425
+},
+{
+"id": "fairview-crescent-residence",
+"name": "Fairview Crescent Residence",
+"lat": 49.26326,
+"lng": -123.24002
+},
+{
+"id": "first-nations-longhouse",
+"name": "First Nations Longhouse",
+"lat": 49.26553,
+"lng": -123.25739
+},
+{
+"id": "focal",
+"name": "Focal",
+"lat": 49.26617,
+"lng": -123.24843
+},
+{
+"id": "folio",
+"name": "Folio",
+"lat": 49.27211,
+"lng": -123.24975
+},
+{
+"id": "food-nutrition-and-health-building",
+"name": "Food, Nutrition and Health Building",
+"lat": 49.26398,
+"lng": -123.24975
+},
+{
+"id": "forest-sciences-centre",
+"name": "Forest Sciences Centre",
+"lat": 49.26044,
+"lng": -123.24831
+},
+{
+"id": "forestry-field-house",
+"name": "Forestry Field House",
+"lat": 49.25156,
+"lng": -123.24014
+},
+{
+"id": "fpinnovations",
+"name": "FPInnovations",
+"lat": 49.25682,
+"lng": -123.24443
+},
+{
+"id": "fpinnovations-forest-operations",
+"name": "FPInnovations - Forest Operations",
+"lat": 49.25776,
+"lng": -123.2445
+},
+{
+"id": "frank-forward-building-metallurgy",
+"name": "Frank Forward Building - Metallurgy",
+"lat": 49.26171,
+"lng": -123.25172
+},
+{
+"id": "fraser-hall",
+"name": "Fraser Hall",
+"lat": 49.26148,
+"lng": -123.24074
+},
+{
+"id": "fred-kaiser-building",
+"name": "Fred Kaiser Building",
+"lat": 49.26236,
+"lng": -123.25007
+},
+{
+"id": "frederic-lasserre-building",
+"name": "Frederic Lasserre Building",
+"lat": 49.26758,
+"lng": -123.25598
+},
+{
+"id": "frederic-wood-theatre",
+"name": "Frederic Wood Theatre",
+"lat": 49.26805,
+"lng": -123.25698
+},
+{
+"id": "friedman-building",
+"name": "Friedman Building",
+"lat": 49.26534,
+"lng": -123.24626
+},
+{
+"id": "gage-apartments",
+"name": "Gage Apartments",
+"lat": 49.27015,
+"lng": -123.24905
+},
+{
+"id": "garden-pavilion-public-service-centre",
+"name": "Garden Pavilion - Public Service Centre",
+"lat": 49.25325,
+"lng": -123.24712
+},
+{
+"id": "gas-gun-facility",
+"name": "Gas Gun Facility",
+"lat": 49.25602,
+"lng": -123.24604
+},
+{
+"id": "gate-house",
+"name": "Gate House",
+"lat": 49.25497,
+"lng": -123.24692
+},
+{
+"id": "geography-building",
+"name": "Geography Building",
+"lat": 49.26599,
+"lng": -123.25612
+},
+{
+"id": "gerald-mcgavin-building",
+"name": "Gerald McGavin Building",
+"lat": 49.26179,
+"lng": -123.24678
+},
+{
+"id": "gerald-mcgavin-ubc-rugby-centre",
+"name": "Gerald McGavin UBC Rugby Centre",
+"lat": 49.25958,
+"lng": -123.2413
+},
+{
+"id": "gordon-b-shrum-building",
+"name": "Gordon B. Shrum Building",
+"lat": 49.26562,
+"lng": -123.24738
+},
+{
+"id": "gordon-shrum-common-block",
+"name": "Gordon Shrum Common Block",
+"lat": 49.26466,
+"lng": -123.25855
+},
+{
+"id": "granite-terrace",
+"name": "Granite Terrace",
+"lat": 49.25484,
+"lng": -123.23707
+},
+{
+"id": "granite-terrace-iii",
+"name": "Granite Terrace III",
+"lat": 49.25447,
+"lng": -123.23639
+},
+{
+"id": "green-college-building-b-east",
+"name": "Green College - Building B East",
+"lat": 49.27083,
+"lng": -123.25601
+},
+{
+"id": "green-college-d-commons",
+"name": "Green College - D Commons",
+"lat": 49.2713,
+"lng": -123.2567
+},
+{
+"id": "green-college-prinicipal-s-residence",
+"name": "Green College - Prinicipal's Residence",
+"lat": 49.27093,
+"lng": -123.25697
+},
+{
+"id": "green-college-coach-house",
+"name": "Green College Coach House",
+"lat": 49.27114,
+"lng": -123.25655
+},
+{
+"id": "green-college-front-desk",
+"name": "Green College Front Desk",
+"lat": 49.27099,
+"lng": -123.25632
+},
+{
+"id": "green-college-graham-house",
+"name": "Green College Graham House",
+"lat": 49.27128,
+"lng": -123.25624
+},
+{
+"id": "green-college-guest-house",
+"name": "Green College Guest House",
+"lat": 49.27085,
+"lng": -123.25654
+},
+{
+"id": "green-college-kitchen",
+"name": "Green College Kitchen",
+"lat": 49.27099,
+"lng": -123.25557
+},
+{
+"id": "greenhouse",
+"name": "Greenhouse",
+"lat": 49.25484,
+"lng": -123.24754
+},
+{
+"id": "greenwood-commons",
+"name": "Greenwood Commons",
+"lat": 49.26091,
+"lng": -123.24031
+},
+{
+"id": "haida-house",
+"name": "Haida House",
+"lat": 49.25744,
+"lng": -123.25231
+},
+{
+"id": "hawthorn-green",
+"name": "Hawthorn Green",
+"lat": 49.25817,
+"lng": -123.24859
+},
+{
+"id": "health-sciences-parkade",
+"name": "Health Sciences Parkade",
+"lat": 49.2634,
+"lng": -123.24785
+},
+{
+"id": "hebb-building",
+"name": "Hebb Building",
+"lat": 49.26603,
+"lng": -123.25179
+},
+{
+"id": "hebb-theater",
+"name": "Hebb Theater",
+"lat": 49.26625,
+"lng": -123.2515
+},
+{
+"id": "hennings-building",
+"name": "Hennings Building",
+"lat": 49.26644,
+"lng": -123.25221
+},
+{
+"id": "henry-angus-building",
+"name": "Henry Angus Building",
+"lat": 49.2651,
+"lng": -123.25389
+},
+{
+"id": "herring-house",
+"name": "Herring House",
+"lat": 49.26959,
+"lng": -123.24794
+},
+{
+"id": "high-head-lab",
+"name": "High Head Lab",
+"lat": 49.2636,
+"lng": -123.24902
+},
+{
+"id": "hillel-house",
+"name": "Hillel House",
+"lat": 49.26862,
+"lng": -123.25134
+},
+{
+"id": "horticulture-building",
+"name": "Horticulture Building",
+"lat": 49.2614,
+"lng": -123.2528
+},
+{
+"id": "hr-macmillan-building",
+"name": "HR MacMillan Building",
+"lat": 49.26107,
+"lng": -123.25071
+},
+{
+"id": "hugh-dempster-pavillion",
+"name": "Hugh Dempster Pavillion",
+"lat": 49.26124,
+"lng": -123.24805
+},
+{
+"id": "hydrogen-compressor-storage",
+"name": "Hydrogen Compressor & Storage",
+"lat": 49.26111,
+"lng": -123.24387
+},
+{
+"id": "h-m-l-s-m-house",
+"name": "h\u0259m\u2019l\u0259s\u0259m\u2019 House",
+"lat": 49.25859,
+"lng": -123.25119
+},
+{
+"id": "ichibo-an-tea-house",
+"name": "Ichibo-an, Tea House",
+"lat": 49.26617,
+"lng": -123.25915
+},
+{
+"id": "indian-residential-school-history-and-dialogue-centre",
+"name": "Indian Residential School History and Dialogue Centre",
+"lat": 49.26699,
+"lng": -123.25375
+},
+{
+"id": "institute-for-computing-information-and-cognitive-systems-computer-science",
+"name": "Institute For Computing, Information And Cognitive Systems / Computer Science",
+"lat": 49.26116,
+"lng": -123.24879
+},
+{
+"id": "international-house",
+"name": "International House",
+"lat": 49.2678,
+"lng": -123.25896
+},
+{
+"id": "irving-k-barber-learning-centre",
+"name": "Irving K. Barber Learning Centre",
+"lat": 49.26757,
+"lng": -123.25272
+},
+{
+"id": "isabel-macinnes-hall",
+"name": "Isabel Macinnes Hall",
+"lat": 49.27053,
+"lng": -123.25751
+},
+{
+"id": "ivy-on-the-park-highrise",
+"name": "Ivy on the Park - Highrise",
+"lat": 49.25473,
+"lng": -123.23107
+},
+{
+"id": "ivy-on-the-park-townhomes",
+"name": "Ivy on the Park - Townhomes",
+"lat": 49.25463,
+"lng": -123.23204
+},
+{
+"id": "jack-bell-building",
+"name": "Jack Bell Building",
+"lat": 49.26448,
+"lng": -123.2551
+},
+{
+"id": "journey",
+"name": "Journey",
+"lat": 49.25804,
+"lng": -123.24746
+},
+{
+"id": "kappa-sigma",
+"name": "Kappa Sigma",
+"lat": 49.25974,
+"lng": -123.23935
+},
+{
+"id": "keats-hall",
+"name": "Keats Hall",
+"lat": 49.2635,
+"lng": -123.2422
+},
+{
+"id": "keenleyside",
+"name": "Keenleyside",
+"lat": 49.25393,
+"lng": -123.23313
+},
+{
+"id": "kids-club-prince-rupert-child-care",
+"name": "Kids Club (Prince Rupert Child Care)",
+"lat": 49.26173,
+"lng": -123.23481
+},
+{
+"id": "koerner-pavilion",
+"name": "Koerner Pavilion",
+"lat": 49.2642,
+"lng": -123.24599
+},
+{
+"id": "kootenay-house",
+"name": "Kootenay House",
+"lat": 49.26388,
+"lng": -123.25765
+},
+{
+"id": "korea-house",
+"name": "Korea House",
+"lat": 49.26458,
+"lng": -123.26001
+},
+{
+"id": "kwakiutl-house",
+"name": "Kwakiutl House",
+"lat": 49.2596,
+"lng": -123.2524
+},
+{
+"id": "ladner-clock-tower",
+"name": "Ladner Clock Tower",
+"lat": 49.26735,
+"lng": -123.25368
+},
+{
+"id": "landscape-architecture-annex",
+"name": "Landscape Architecture Annex",
+"lat": 49.26065,
+"lng": -123.25007
+},
+{
+"id": "legacy",
+"name": "Legacy",
+"lat": 49.25747,
+"lng": -123.24802
+},
+{
+"id": "leon-thea-koerner-university-centre",
+"name": "Leon & Thea Koerner University Centre",
+"lat": 49.26887,
+"lng": -123.25727
+},
+{
+"id": "leonard-s-klinck-building",
+"name": "Leonard S. Klinck Building",
+"lat": 49.26546,
+"lng": -123.25536
+},
+{
+"id": "library-preservation-and-archives",
+"name": "Library Preservation and Archives",
+"lat": 49.24507,
+"lng": -123.22964
+},
+{
+"id": "life-building",
+"name": "Life Building",
+"lat": 49.26744,
+"lng": -123.25006
+},
+{
+"id": "life-sciences-centre",
+"name": "Life Sciences Centre",
+"lat": 49.26255,
+"lng": -123.24511
+},
+{
+"id": "liu-institute",
+"name": "Liu Institute",
+"lat": 49.26756,
+"lng": -123.25928
+},
+{
+"id": "lower-mall-header-house",
+"name": "Lower Mall Header House",
+"lat": 49.2606,
+"lng": -123.2548
+},
+{
+"id": "lower-mall-research-station",
+"name": "Lower Mall Research Station",
+"lat": 49.26051,
+"lng": -123.25562
+},
+{
+"id": "macdonald-building",
+"name": "Macdonald Building",
+"lat": 49.26536,
+"lng": -123.24532
+},
+{
+"id": "macinnes-field-parkade",
+"name": "MacInnes Field Parkade",
+"lat": 49.26675,
+"lng": -123.24899
+},
+{
+"id": "macisaac-health-building",
+"name": "MacIsaac Health Building",
+"lat": 49.26675,
+"lng": -123.24652
+},
+{
+"id": "mackenzie-house",
+"name": "Mackenzie House",
+"lat": 49.26483,
+"lng": -123.24199
+},
+{
+"id": "macleod-building",
+"name": "MacLeod Building",
+"lat": 49.26173,
+"lng": -123.24935
+},
+{
+"id": "magnolia-house",
+"name": "Magnolia House",
+"lat": 49.25154,
+"lng": -123.23357
+},
+{
+"id": "maple-house",
+"name": "Maple House",
+"lat": 49.26355,
+"lng": -123.25546
+},
+{
+"id": "margaret-mackenzie-house",
+"name": "Margaret Mackenzie House",
+"lat": 49.2657,
+"lng": -123.25915
+},
+{
+"id": "marine",
+"name": "Marine Drive",
+"lat": 49.262,
+"lng": -123.256
+},
+{
+"id": "marine-drive-commons-block",
+"name": "Marine Drive Commons Block",
+"lat": 49.26143,
+"lng": -123.25682
+},
+{
+"id": "marine-drive-residence-2",
+"name": "Marine Drive Residence - 2",
+"lat": 49.26187,
+"lng": -123.25677
+},
+{
+"id": "marine-drive-residence-4",
+"name": "Marine Drive Residence - 4",
+"lat": 49.26156,
+"lng": -123.25535
+},
+{
+"id": "marine-drive-residence-5",
+"name": "Marine Drive Residence - 5",
+"lat": 49.26113,
+"lng": -123.25489
+},
+{
+"id": "marine-drive-residence-6",
+"name": "Marine Drive Residence - 6",
+"lat": 49.26107,
+"lng": -123.2561
+},
+{
+"id": "mary-bollert-hall",
+"name": "Mary Bollert Hall",
+"lat": 49.27059,
+"lng": -123.25601
+},
+{
+"id": "mary-murrin-hall",
+"name": "Mary Murrin Hall",
+"lat": 49.27048,
+"lng": -123.25802
+},
+{
+"id": "math-annex",
+"name": "Math Annex",
+"lat": 49.2661,
+"lng": -123.25484
+},
+{
+"id": "mathematics-building",
+"name": "Mathematics Building",
+"lat": 49.26645,
+"lng": -123.25556
+},
+{
+"id": "mba-house",
+"name": "MBA House",
+"lat": 49.25387,
+"lng": -123.2352
+},
+{
+"id": "medical-sciences-block-c",
+"name": "Medical Sciences Block C",
+"lat": 49.26494,
+"lng": -123.24786
+},
+{
+"id": "menno-hall",
+"name": "Menno Hall",
+"lat": 49.26686,
+"lng": -123.24514
+},
+{
+"id": "meter-station",
+"name": "Meter Station",
+"lat": 49.26504,
+"lng": -123.25447
+},
+{
+"id": "michael-smith-laboratories",
+"name": "Michael Smith Laboratories",
+"lat": 49.26455,
+"lng": -123.25025
+},
+{
+"id": "millennial-time-machine",
+"name": "Millennial Time Machine",
+"lat": 49.26752,
+"lng": -123.25451
+},
+{
+"id": "modern-green",
+"name": "Modern Green",
+"lat": 49.25356,
+"lng": -123.23607
+},
+{
+"id": "morris-and-helen-belkin-art-gallery",
+"name": "Morris and Helen Belkin Art Gallery",
+"lat": 49.26818,
+"lng": -123.25619
+},
+{
+"id": "mortuary-house",
+"name": "Mortuary House",
+"lat": 49.26903,
+"lng": -123.26056
+},
+{
+"id": "mundell-house",
+"name": "Mundell House",
+"lat": 49.25293,
+"lng": -123.23611
+},
+{
+"id": "museum-of-anthropology",
+"name": "Museum of Anthropology",
+"lat": 49.26947,
+"lng": -123.25936
+},
+{
+"id": "music-building",
+"name": "Music Building",
+"lat": 49.26743,
+"lng": -123.25679
+},
+{
+"id": "national-soccer-development-centre",
+"name": "National Soccer Development Centre",
+"lat": 49.25713,
+"lng": -123.23988
+},
+{
+"id": "neville-scarfe-building",
+"name": "Neville Scarfe Building",
+"lat": 49.26398,
+"lng": -123.25308
+},
+{
+"id": "nine-on-the-park",
+"name": "Nine On The Park",
+"lat": 49.25932,
+"lng": -123.24704
+},
+{
+"id": "nobel-house",
+"name": "Nobel House",
+"lat": 49.25084,
+"lng": -123.23322
+},
+{
+"id": "nootka-house",
+"name": "Nootka House",
+"lat": 49.25868,
+"lng": -123.25291
+},
+{
+"id": "norman-mackenzie-house",
+"name": "Norman Mackenzie House",
+"lat": 49.26762,
+"lng": -123.26123
+},
+{
+"id": "north-parkade",
+"name": "North Parkade",
+"lat": 49.26904,
+"lng": -123.25093
+},
+{
+"id": "north-tower",
+"name": "North Tower",
+"lat": 49.26985,
+"lng": -123.25003
+},
+{
+"id": "o-keefe",
+"name": "O'Keefe",
+"lat": 49.26528,
+"lng": -123.24062
+},
+{
+"id": "oak-house",
+"name": "Oak House",
+"lat": 49.26399,
+"lng": -123.25601
+},
+{
+"id": "octopus-house",
+"name": "Octopus House",
+"lat": 49.27053,
+"lng": -123.24835
+},
+{
+"id": "okanagan-house",
+"name": "Okanagan House",
+"lat": 49.26436,
+"lng": -123.25777
+},
+{
+"id": "old-administration-building",
+"name": "Old Administration Building",
+"lat": 49.2671,
+"lng": -123.25553
+},
+{
+"id": "old-auditorium",
+"name": "Old Auditorium",
+"lat": 49.26691,
+"lng": -123.25607
+},
+{
+"id": "old-barn-community-centre",
+"name": "Old Barn Community Centre",
+"lat": 49.25892,
+"lng": -123.24827
+},
+{
+"id": "orca-house",
+"name": "Orca House",
+"lat": 49.26882,
+"lng": -123.24966
+},
+{
+"id": "orchard",
+"name": "Orchard Commons",
+"lat": 49.26,
+"lng": -123.2505
+},
+{
+"id": "p-a-woodward-instructional-resources-centre",
+"name": "P. A. Woodward Instructional Resources Centre",
+"lat": 49.2648,
+"lng": -123.24684
+},
+{
+"id": "pacific",
+"name": "Pacific",
+"lat": 49.25324,
+"lng": -123.23497
+},
+{
+"id": "panhellenic-sorority-house",
+"name": "Panhellenic Sorority House",
+"lat": 49.26011,
+"lng": -123.23959
+},
+{
+"id": "pathways",
+"name": "Pathways",
+"lat": 49.25438,
+"lng": -123.23376
+},
+{
+"id": "pemberley",
+"name": "Pemberley",
+"lat": 49.258,
+"lng": -123.23219
+},
+{
+"id": "pharmaceutical-sciences-building",
+"name": "Pharmaceutical Sciences Building",
+"lat": 49.26226,
+"lng": -123.24329
+},
+{
+"id": "phi-delta-theta",
+"name": "Phi Delta Theta",
+"lat": 49.25965,
+"lng": -123.23837
+},
+{
+"id": "phi-gamma-delta",
+"name": "Phi Gamma Delta",
+"lat": 49.25999,
+"lng": -123.23866
+},
+{
+"id": "phyllis-ross-house",
+"name": "Phyllis Ross House",
+"lat": 49.26531,
+"lng": -123.25961
+},
+{
+"id": "pine-house",
+"name": "Pine House",
+"lat": 49.25149,
+"lng": -123.2343
+},
+{
+"id": "vanier",
+"name": "Place Vanier",
+"lat": 49.2645,
+"lng": -123.2565
+},
+{
+"id": "plant-operations-exterior-storage-shed",
+"name": "Plant Operations Exterior Storage Shed",
+"lat": 49.26216,
+"lng": -123.25444
+},
+{
+"id": "plant-ops-storage",
+"name": "Plant Ops Storage",
+"lat": 49.24693,
+"lng": -123.23081
+},
+{
+"id": "plant-science-field-building",
+"name": "Plant Science Field Building",
+"lat": 49.25077,
+"lng": -123.23798
+},
+{
+"id": "plant-science-field-station",
+"name": "Plant Science Field Station",
+"lat": 49.25631,
+"lng": -123.2495
+},
+{
+"id": "plant-science-garage",
+"name": "Plant Science Garage",
+"lat": 49.25644,
+"lng": -123.24928
+},
+{
+"id": "plant-services-storage-shed",
+"name": "Plant Services Storage Shed",
+"lat": 49.246,
+"lng": -123.23045
+},
+{
+"id": "point-grey-apartments",
+"name": "Point Grey Apartments",
+"lat": 49.25996,
+"lng": -123.23798
+},
+{
+"id": "pollock",
+"name": "Pollock",
+"lat": 49.26554,
+"lng": -123.24021
+},
+{
+"id": "ponderosa-annex-office-a",
+"name": "Ponderosa Annex Office A",
+"lat": 49.26517,
+"lng": -123.25639
+},
+{
+"id": "ponderosa-annex-office-b",
+"name": "Ponderosa Annex Office B",
+"lat": 49.26484,
+"lng": -123.25597
+},
+{
+"id": "ponderosa-annex-office-c",
+"name": "Ponderosa Annex Office C",
+"lat": 49.26486,
+"lng": -123.25626
+},
+{
+"id": "ponderosa-annex-office-e-english-annex",
+"name": "Ponderosa Annex Office E - English Annex",
+"lat": 49.26468,
+"lng": -123.25669
+},
+{
+"id": "ponderosa-annex-office-f-student-services",
+"name": "Ponderosa Annex Office F - Student Services",
+"lat": 49.26492,
+"lng": -123.25717
+},
+{
+"id": "ponderosa-annex-office-g",
+"name": "Ponderosa Annex Office G",
+"lat": 49.26448,
+"lng": -123.25644
+},
+{
+"id": "ponderosa",
+"name": "Ponderosa Commons",
+"lat": 49.2645,
+"lng": -123.2545
+},
+{
+"id": "prodigy",
+"name": "Prodigy",
+"lat": 49.25166,
+"lng": -123.23666
+},
+{
+"id": "promontory-tower",
+"name": "Promontory Tower",
+"lat": 49.25596,
+"lng": -123.24758
+},
+{
+"id": "proton-hall-extension",
+"name": "Proton Hall Extension",
+"lat": 49.24712,
+"lng": -123.2304
+},
+{
+"id": "psi-upsilon",
+"name": "Psi Upsilon",
+"lat": 49.25946,
+"lng": -123.23884
+},
+{
+"id": "public-safety-building",
+"name": "Public Safety Building",
+"lat": 49.25894,
+"lng": -123.23815
+},
+{
+"id": "pulp-and-paper-research",
+"name": "Pulp And Paper Research",
+"lat": 49.26141,
+"lng": -123.24757
+},
+{
+"id": "pump-house",
+"name": "Pump House",
+"lat": 49.26462,
+"lng": -123.25417
+},
+{
+"id": "purdy-pavilion",
+"name": "Purdy Pavilion",
+"lat": 49.26325,
+"lng": -123.24592
+},
+{
+"id": "q-l-n-house",
+"name": "q\u2019\u0259l\u0259\u03c7\u0259n House",
+"lat": 49.2592,
+"lng": -123.25151
+},
+{
+"id": "reception-centre",
+"name": "Reception Centre",
+"lat": 49.25415,
+"lng": -123.25124
+},
+{
+"id": "recreation-centre-north",
+"name": "Recreation Centre North",
+"lat": 49.26797,
+"lng": -123.25049
+},
+{
+"id": "reflections",
+"name": "Reflections",
+"lat": 49.25823,
+"lng": -123.24692
+},
+{
+"id": "research-station-annex-6",
+"name": "Research Station Annex 6",
+"lat": 49.2607,
+"lng": -123.25451
+},
+{
+"id": "ritsumeikan-house",
+"name": "Ritsumeikan House",
+"lat": 49.26007,
+"lng": -123.25297
+},
+{
+"id": "robert-f-osborne-centre-unit-1",
+"name": "Robert F. Osborne Centre - Unit 1",
+"lat": 49.26029,
+"lng": -123.24372
+},
+{
+"id": "robert-f-osborne-centre-unit-2",
+"name": "Robert F. Osborne Centre - Unit 2",
+"lat": 49.25994,
+"lng": -123.24434
+},
+{
+"id": "robert-h-lee-alumni-centre",
+"name": "Robert H. Lee Alumni Centre",
+"lat": 49.26594,
+"lng": -123.24994
+},
+{
+"id": "robson-house",
+"name": "Robson House",
+"lat": 49.2639,
+"lng": -123.25843
+},
+{
+"id": "ross-house",
+"name": "Ross House",
+"lat": 49.26559,
+"lng": -123.24192
+},
+{
+"id": "rugby-pavilion",
+"name": "Rugby Pavilion",
+"lat": 49.25867,
+"lng": -123.24401
+},
+{
+"id": "sage",
+"name": "Sage",
+"lat": 49.25527,
+"lng": -123.23374
+},
+{
+"id": "sage-bistro",
+"name": "Sage Bistro",
+"lat": 49.26913,
+"lng": -123.25684
+},
+{
+"id": "sail",
+"name": "Sail",
+"lat": 49.2526,
+"lng": -123.23521
+},
+{
+"id": "salal",
+"name": "Salal",
+"lat": 49.26,
+"lng": -123.23528
+},
+{
+"id": "salish-house",
+"name": "Salish House",
+"lat": 49.25747,
+"lng": -123.25294
+},
+{
+"id": "sandpiper-auklet",
+"name": "Sandpiper/Auklet",
+"lat": 49.26026,
+"lng": -123.23475
+},
+{
+"id": "save-on-foods",
+"name": "Save-On-Foods",
+"lat": 49.25474,
+"lng": -123.23689
+},
+{
+"id": "saw-whet",
+"name": "Saw-Whet",
+"lat": 49.2604,
+"lng": -123.2365
+},
+{
+"id": "school-of-population-and-public-health",
+"name": "School of Population and Public Health",
+"lat": 49.26423,
+"lng": -123.24843
+},
+{
+"id": "sea-otter-house",
+"name": "Sea Otter House",
+"lat": 49.27017,
+"lng": -123.24803
+},
+{
+"id": "seed-hoophouse",
+"name": "Seed Hoophouse",
+"lat": 49.25105,
+"lng": -123.23901
+},
+{
+"id": "seedling-greenhouse",
+"name": "Seedling Greenhouse",
+"lat": 49.25115,
+"lng": -123.23895
+},
+{
+"id": "shed",
+"name": "Shed",
+"lat": 49.26585,
+"lng": -123.25942
+},
+{
+"id": "sherwood-lett-house",
+"name": "Sherwood Lett House",
+"lat": 49.2634,
+"lng": -123.25753
+},
+{
+"id": "shipping-and-receiving-stores",
+"name": "Shipping and Receiving, Stores",
+"lat": 49.24646,
+"lng": -123.23057
+},
+{
+"id": "shuswap-house",
+"name": "Shuswap House",
+"lat": 49.25908,
+"lng": -123.25226
+},
+{
+"id": "sigma-chi",
+"name": "Sigma Chi",
+"lat": 49.25983,
+"lng": -123.23915
+},
+{
+"id": "simon-k-y-lee-hku-ubc-house",
+"name": "Simon K.Y. Lee Hku-Ubc House",
+"lat": 49.26199,
+"lng": -123.2559
+},
+{
+"id": "sing-tao-building",
+"name": "Sing Tao Building",
+"lat": 49.26783,
+"lng": -123.25777
+},
+{
+"id": "sitka",
+"name": "Sitka",
+"lat": 49.26287,
+"lng": -123.24192
+},
+{
+"id": "somerset-manor",
+"name": "Somerset Manor",
+"lat": 49.26638,
+"lng": -123.24002
+},
+{
+"id": "somerville-house",
+"name": "Somerville House",
+"lat": 49.2704,
+"lng": -123.25106
+},
+{
+"id": "sopron-gate",
+"name": "Sopron Gate",
+"lat": 49.2599,
+"lng": -123.24846
+},
+{
+"id": "sopron-house",
+"name": "Sopron House",
+"lat": 49.26218,
+"lng": -123.23534
+},
+{
+"id": "south-campus-warehouse",
+"name": "South Campus Warehouse",
+"lat": 49.24625,
+"lng": -123.23187
+},
+{
+"id": "south-tower",
+"name": "South Tower",
+"lat": 49.2692,
+"lng": -123.24973
+},
+{
+"id": "spirit",
+"name": "Spirit",
+"lat": 49.25297,
+"lng": -123.23358
+},
+{
+"id": "spirit-house",
+"name": "Spirit House",
+"lat": 49.26581,
+"lng": -123.2574
+},
+{
+"id": "spirit-park-apartments",
+"name": "Spirit Park Apartments",
+"lat": 49.2615,
+"lng": -123.23938
+},
+{
+"id": "spruce-house",
+"name": "Spruce House",
+"lat": 49.26366,
+"lng": -123.25434
+},
+{
+"id": "st-mark-s-parish",
+"name": "St Mark's Parish",
+"lat": 49.27215,
+"lng": -123.24899
+},
+{
+"id": "st-andrew-s-hall",
+"name": "St. Andrew's Hall",
+"lat": 49.27016,
+"lng": -123.25172
+},
+{
+"id": "st-anselm-s-anglican-church",
+"name": "St. Anselm's Anglican Church",
+"lat": 49.26308,
+"lng": -123.23046
+},
+{
+"id": "st-james-building",
+"name": "St. James Building",
+"lat": 49.25823,
+"lng": -123.23721
+},
+{
+"id": "st-john-hospice",
+"name": "St. John Hospice",
+"lat": 49.25551,
+"lng": -123.24735
+},
+{
+"id": "staff-and-faculty-housing",
+"name": "Staff And Faculty Housing",
+"lat": 49.25871,
+"lng": -123.249
+},
+{
+"id": "stirling-house",
+"name": "Stirling House",
+"lat": 49.27048,
+"lng": -123.25247
+},
+{
+"id": "stores-road-annex",
+"name": "Stores Road Annex",
+"lat": 49.26164,
+"lng": -123.25236
+},
+{
+"id": "student-recreation-centre",
+"name": "Student Recreation Centre",
+"lat": 49.2683,
+"lng": -123.24897
+},
+{
+"id": "sturgeon-house",
+"name": "Sturgeon House",
+"lat": 49.2692,
+"lng": -123.24859
+},
+{
+"id": "swing-space-building",
+"name": "Swing Space Building",
+"lat": 49.26279,
+"lng": -123.25438
+},
+{
+"id": "symphony",
+"name": "Symphony",
+"lat": 49.25102,
+"lng": -123.2323
+},
+{
+"id": "tamarack-house",
+"name": "Tamarack House",
+"lat": 49.25958,
+"lng": -123.24632
+},
+{
+"id": "tapestry-at-wesbrook-village-building-1",
+"name": "Tapestry at Wesbrook Village - Building 1",
+"lat": 49.25476,
+"lng": -123.23495
+},
+{
+"id": "tapestry-at-wesbrook-village-building-2",
+"name": "Tapestry at Wesbrook Village - Building 2",
+"lat": 49.25415,
+"lng": -123.23454
+},
+{
+"id": "tec-de-monterrey",
+"name": "Tec De Monterrey",
+"lat": 49.26405,
+"lng": -123.25951
+},
+{
+"id": "technology-enterprise-facility",
+"name": "Technology Enterprise Facility",
+"lat": 49.26115,
+"lng": -123.2463
+},
+{
+"id": "the-balmoral",
+"name": "The Balmoral",
+"lat": 49.2585,
+"lng": -123.23274
+},
+{
+"id": "the-bristol",
+"name": "The Bristol",
+"lat": 49.25886,
+"lng": -123.235
+},
+{
+"id": "the-laureates",
+"name": "The Laureates",
+"lat": 49.2541,
+"lng": -123.23081
+},
+{
+"id": "the-mews",
+"name": "The Mews",
+"lat": 49.25455,
+"lng": -123.2357
+},
+{
+"id": "nest",
+"name": "The Nest (AMS Student Nest)",
+"lat": 49.2665,
+"lng": -123.2495
+},
+{
+"id": "the-regency",
+"name": "The Regency",
+"lat": 49.25911,
+"lng": -123.23289
+},
+{
+"id": "the-stratford",
+"name": "The Stratford",
+"lat": 49.25963,
+"lng": -123.23345
+},
+{
+"id": "thea-koerner-house",
+"name": "Thea Koerner House",
+"lat": 49.26832,
+"lng": -123.2579
+},
+{
+"id": "theatre-film-production-building",
+"name": "Theatre-Film Production Building",
+"lat": 49.26391,
+"lng": -123.25397
+},
+{
+"id": "theatre-film-production-building-annex",
+"name": "Theatre-Film Production Building - Annex",
+"lat": 49.2638,
+"lng": -123.25385
+},
+{
+"id": "third-space",
+"name": "Third Space",
+"lat": 49.26301,
+"lng": -123.25328
+},
+{
+"id": "thunderbird",
+"name": "Thunderbird",
+"lat": 49.259,
+"lng": -123.2445
+},
+{
+"id": "thunderbird-arena",
+"name": "Thunderbird Arena",
+"lat": 49.26002,
+"lng": -123.24165
+},
+{
+"id": "thunderbird-parkade",
+"name": "Thunderbird Parkade",
+"lat": 49.26166,
+"lng": -123.24306
+},
+{
+"id": "tool-shed",
+"name": "Tool Shed",
+"lat": 49.25068,
+"lng": -123.23883
+},
+{
+"id": "totem-field-studios",
+"name": "Totem Field Studios",
+"lat": 49.25614,
+"lng": -123.24903
+},
+{
+"id": "totem",
+"name": "Totem Park",
+"lat": 49.2575,
+"lng": -123.255
+},
+{
+"id": "totem-park-1",
+"name": "Totem Park 1",
+"lat": 49.25934,
+"lng": -123.25233
+},
+{
+"id": "trailer-aa",
+"name": "Trailer Aa",
+"lat": 49.2466,
+"lng": -123.23035
+},
+{
+"id": "trailer-ff",
+"name": "Trailer Ff",
+"lat": 49.24833,
+"lng": -123.23083
+},
+{
+"id": "trailer-hh",
+"name": "Trailer Hh",
+"lat": 49.24836,
+"lng": -123.23054
+},
+{
+"id": "trailer-qq",
+"name": "Trailer Qq",
+"lat": 49.24683,
+"lng": -123.23064
+},
+{
+"id": "trinity-central",
+"name": "Trinity Central",
+"lat": 49.27162,
+"lng": -123.24844
+},
+{
+"id": "triple-o-s-trek-express",
+"name": "Triple O's/Trek Express",
+"lat": 49.26571,
+"lng": -123.2543
+},
+{
+"id": "triumf-accelerator-trailer",
+"name": "TRIUMF - Accelerator Trailer",
+"lat": 49.24686,
+"lng": -123.23016
+},
+{
+"id": "triumf-equipment-marque",
+"name": "TRIUMF - Equipment Marque",
+"lat": 49.24674,
+"lng": -123.23074
+},
+{
+"id": "triumf-service-annex",
+"name": "TRIUMF - Service Annex",
+"lat": 49.24694,
+"lng": -123.22977
+},
+{
+"id": "triumf-service-annex-extension",
+"name": "TRIUMF - Service Annex Extension",
+"lat": 49.24693,
+"lng": -123.23025
+},
+{
+"id": "triumf-trailer-ll",
+"name": "TRIUMF - Trailer LL",
+"lat": 49.2469,
+"lng": -123.231
+},
+{
+"id": "triumf-house",
+"name": "TRIUMF House",
+"lat": 49.26203,
+"lng": -123.24119
+},
+{
+"id": "triumf-isac2-building",
+"name": "TRIUMF ISAC2 Building",
+"lat": 49.24827,
+"lng": -123.22939
+},
+{
+"id": "triumf-mob",
+"name": "TRIUMF MOB",
+"lat": 49.24763,
+"lng": -123.23056
+},
+{
+"id": "tweedsmuir-house",
+"name": "Tweedsmuir House",
+"lat": 49.26347,
+"lng": -123.25829
+},
+{
+"id": "ubc-aquatic-centre",
+"name": "UBC Aquatic Centre",
+"lat": 49.26779,
+"lng": -123.24861
+},
+{
+"id": "ubc-archives-ubc-rare-books-and-special-collections",
+"name": "UBC Archives & UBC Rare Books and Special Collections",
+"lat": 49.26785,
+"lng": -123.25304
+},
+{
+"id": "ubc-baseball-indoor-training-centre",
+"name": "UBC Baseball Indoor Training Centre",
+"lat": 49.2562,
+"lng": -123.23952
+},
+{
+"id": "ubc-bookstore",
+"name": "UBC Bookstore",
+"lat": 49.26502,
+"lng": -123.25065
+},
+{
+"id": "ubc-counselling-services-annex",
+"name": "UBC Counselling Services Annex",
+"lat": 49.26823,
+"lng": -123.25202
+},
+{
+"id": "ubc-farm-yurt",
+"name": "UBC Farm - Yurt",
+"lat": 49.25126,
+"lng": -123.23993
+},
+{
+"id": "ubc-football-academic-centre",
+"name": "UBC Football Academic Centre",
+"lat": 49.25525,
+"lng": -123.24503
+},
+{
+"id": "ubc-hydrogen-station",
+"name": "UBC Hydrogen Station",
+"lat": 49.26091,
+"lng": -123.24395
+},
+{
+"id": "ubc-tennis-centre",
+"name": "UBC Tennis Centre",
+"lat": 49.25978,
+"lng": -123.24495
+},
+{
+"id": "ultima",
+"name": "Ultima",
+"lat": 49.2527,
+"lng": -123.23445
+},
+{
+"id": "university-chapel",
+"name": "University Chapel",
+"lat": 49.26641,
+"lng": -123.23568
+},
+{
+"id": "university-endowment-lands",
+"name": "University Endowment Lands",
+"lat": 49.2737,
+"lng": -123.24158
+},
+{
+"id": "university-hill-elementary-school",
+"name": "University Hill Elementary School",
+"lat": 49.27472,
+"lng": -123.23686
+},
+{
+"id": "university-lodge",
+"name": "University Lodge",
+"lat": 49.26658,
+"lng": -123.23946
+},
+{
+"id": "university-services-building",
+"name": "University Services Building",
+"lat": 49.2613,
+"lng": -123.25381
+},
+{
+"id": "university-transition-program",
+"name": "University Transition Program",
+"lat": 49.26662,
+"lng": -123.2566
+},
+{
+"id": "vancouver-school-of-economics",
+"name": "Vancouver School of Economics",
+"lat": 49.27097,
+"lng": -123.2503
+},
+{
+"id": "verve",
+"name": "Verve",
+"lat": 49.25086,
+"lng": -123.23191
+},
+{
+"id": "village-square",
+"name": "Village Square",
+"lat": 49.25397,
+"lng": -123.2364
+},
+{
+"id": "vista-point",
+"name": "Vista Point",
+"lat": 49.2617,
+"lng": -123.24026
+},
+{
+"id": "vituoso",
+"name": "Vituoso",
+"lat": 49.25074,
+"lng": -123.23393
+},
+{
+"id": "walter-c-koerner-library",
+"name": "Walter C. Koerner Library",
+"lat": 49.26664,
+"lng": -123.25514
+},
+{
+"id": "gage",
+"name": "Walter Gage",
+"lat": 49.2695,
+"lng": -123.2505
+},
+{
+"id": "walter-gage-residence",
+"name": "Walter Gage Residence",
+"lat": 49.26954,
+"lng": -123.24983
+},
+{
+"id": "war-memorial-gym",
+"name": "War Memorial Gym",
+"lat": 49.26678,
+"lng": -123.24763
+},
+{
+"id": "warhol",
+"name": "Warhol",
+"lat": 49.26574,
+"lng": -123.23964
+},
+{
+"id": "wayne-william-white-engineering-design-centre",
+"name": "Wayne & William White Engineering Design Centre",
+"lat": 49.26235,
+"lng": -123.24819
+},
+{
+"id": "webber-house",
+"name": "Webber House",
+"lat": 49.25329,
+"lng": -123.23682
+},
+{
+"id": "wesbrook-building",
+"name": "Wesbrook Building",
+"lat": 49.26518,
+"lng": -123.24914
+},
+{
+"id": "wesbrook-community-centre",
+"name": "Wesbrook Community Centre",
+"lat": 49.25405,
+"lng": -123.23778
+},
+{
+"id": "wesbrook-tower",
+"name": "Wesbrook Tower",
+"lat": 49.25508,
+"lng": -123.23451
+},
+{
+"id": "wesbrook-townhomes",
+"name": "Wesbrook Townhomes",
+"lat": 49.25472,
+"lng": -123.2342
+},
+{
+"id": "wesbrook",
+"name": "Wesbrook Village",
+"lat": 49.253,
+"lng": -123.237
+},
+{
+"id": "west-coast-suites",
+"name": "West Coast Suites",
+"lat": 49.2696,
+"lng": -123.24861
+},
+{
+"id": "west-mall-annex",
+"name": "West Mall Annex",
+"lat": 49.26624,
+"lng": -123.25717
+},
+{
+"id": "west-parkade",
+"name": "West Parkade",
+"lat": 49.26258,
+"lng": -123.25503
+},
+{
+"id": "westpoint",
+"name": "Westpoint",
+"lat": 49.27025,
+"lng": -123.25049
+},
+{
+"id": "willow",
+"name": "Willow",
+"lat": 49.26083,
+"lng": -123.23533
+},
+{
+"id": "wood-products-laboratory",
+"name": "Wood Products Laboratory",
+"lat": 49.26145,
+"lng": -123.25227
+},
+{
+"id": "woodward-library",
+"name": "Woodward Library",
+"lat": 49.26456,
+"lng": -123.24758
+},
+{
+"id": "work-machine-shop",
+"name": "Work / Machine Shop",
+"lat": 49.24624,
+"lng": -123.23006
+},
+{
+"id": "wyndham-hall",
+"name": "Wyndham Hall",
+"lat": 49.25931,
+"lng": -123.23421
+},
+{
+"id": "x-wi7x-wa",
+"name": "X\u0331wi7x\u0331wa",
+"lat": 49.26545,
+"lng": -123.25654
+}
+]
