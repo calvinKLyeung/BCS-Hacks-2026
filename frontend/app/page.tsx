@@ -8,14 +8,23 @@ import Filters from "@/components/Filters";
 import ListingCard from "@/components/ListingCard";
 import MapView from "@/components/MapView";
 import { aiSearch, getListings, getPickupPoints, type Loc } from "@/lib/api";
-import { getBrowserLocation, loadFallbackPointId, pointById, saveFallbackPointId } from "@/lib/location";
+import {
+  DEFAULT_POINT_ID,
+  getBrowserLocation,
+  loadFallbackPointId,
+  MY_LOCATION,
+  pointById,
+  saveFallbackPointId,
+} from "@/lib/location";
 import type { Listing, PickupPoint, PostType, Tag } from "@/lib/types";
 
 export default function BrowsePage() {
   const [points, setPoints] = useState<PickupPoint[]>([]);
   const [geoLoc, setGeoLoc] = useState<Loc | null>(null);
-  const [geoDenied, setGeoDenied] = useState(false);
-  const [fallbackId, setFallbackId] = useState(loadFallbackPointId);
+  const [geoFailed, setGeoFailed] = useState(false);
+  // What distances are measured from: MY_LOCATION (the device) or a building id. Remembered per device.
+  const [nearId, setNearId] = useState(loadFallbackPointId);
+  const [nearError, setNearError] = useState("");
 
   const [type, setType] = useState<PostType | null>(null);
   const [tag, setTag] = useState<Tag | null>(null);
@@ -42,13 +51,16 @@ export default function BrowsePage() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Where distances are measured from: real location, else the chosen pickup point.
-  const fallbackPoint = geoDenied ? pointById(points, fallbackId) : undefined;
-  const userLoc: Loc | null = geoLoc || (fallbackPoint ? { lat: fallbackPoint.lat, lng: fallbackPoint.lng } : null);
+  // "My location" uses the device position; if that's unavailable, fall back to the default building.
+  const usingGps = nearId === MY_LOCATION && !!geoLoc;
+  const nearPoint = nearId !== MY_LOCATION ? pointById(points, nearId) : geoFailed ? pointById(points, DEFAULT_POINT_ID) : undefined;
+  const userLoc: Loc | null = usingGps ? geoLoc : nearPoint ? { lat: nearPoint.lat, lng: nearPoint.lng } : null;
+  const pickerValue = nearId === MY_LOCATION && !geoLoc && geoFailed ? DEFAULT_POINT_ID : nearId;
+  const pickerPoints = [{ id: MY_LOCATION, name: "My location", lat: 0, lng: 0 }, ...points];
 
   useEffect(() => {
     getPickupPoints().then(setPoints).catch(() => {});
-    getBrowserLocation().then((loc) => (loc ? setGeoLoc(loc) : setGeoDenied(true)));
+    getBrowserLocation().then((loc) => (loc ? setGeoLoc(loc) : setGeoFailed(true)));
   }, []);
 
   const requestKey = JSON.stringify([type, tag, search, userLoc]);
@@ -71,14 +83,30 @@ export default function BrowsePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestKey]);
 
-  // "Show my location" button on the map: a fresh reading replaces the I'm-near fallback.
-  async function locateMe() {
+  // Map "Show my location" button, or picking "My location": get a fresh reading and measure from it.
+  async function locateMe(fromPicker = false) {
     const loc = await getBrowserLocation(true);
     if (loc) {
       setGeoLoc(loc);
-      setGeoDenied(false);
+      setGeoFailed(false);
+      setNearId(MY_LOCATION);
+      saveFallbackPointId(MY_LOCATION);
+      setNearError("");
+    } else if (fromPicker) {
+      setNearError(
+        window.isSecureContext
+          ? "Couldn't get your location. Check the browser's location permission."
+          : "Location needs HTTPS or localhost. Pick a building instead.",
+      );
     }
     return loc;
+  }
+
+  function chooseNear(id: string) {
+    if (id === MY_LOCATION) return void locateMe(true);
+    setNearId(id);
+    saveFallbackPointId(id);
+    setNearError("");
   }
 
   function selectFromMap(id: string | null) {
@@ -114,7 +142,7 @@ export default function BrowsePage() {
         userLoc={userLoc}
         selectedId={selectedId}
         onSelect={selectFromMap}
-        onLocate={locateMe}
+        onLocate={() => locateMe()}
         className="h-[60vh] lg:h-[560px]"
       />
       <p className="mt-1.5 text-xs text-muted">Pins show approximate pickup spots.</p>
@@ -126,20 +154,15 @@ export default function BrowsePage() {
       <AISearchBar loading={loading && !!search.query} onSearch={(query) => setSearch((s) => ({ query, nonce: s.nonce + 1 }))} />
       <Filters type={type} tag={tag} onType={setType} onTag={setTag} />
 
-      {geoDenied && points.length > 0 && (
-        <div className="flex items-center gap-2 text-sm text-muted">
-          <label htmlFor="near" className="shrink-0">I&apos;m near:</label>
-          <div className="w-full max-w-xs text-ink">
-            <BuildingPicker
-              id="near"
-              points={points}
-              value={fallbackId}
-              onChange={(id) => {
-                setFallbackId(id);
-                saveFallbackPointId(id);
-              }}
-            />
+      {points.length > 0 && (
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-sm text-muted">
+            <label htmlFor="near" className="shrink-0">I&apos;m near:</label>
+            <div className="w-full max-w-xs text-ink">
+              <BuildingPicker id="near" points={pickerPoints} value={pickerValue} onChange={chooseNear} />
+            </div>
           </div>
+          {nearError && <p className="text-sm text-red-700">{nearError}</p>}
         </div>
       )}
 
