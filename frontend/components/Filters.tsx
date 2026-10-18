@@ -11,6 +11,7 @@ const TYPE_OPTIONS: { value: PostType | null; label: string }[] = [
   { value: null, label: "All" },
   { value: "free", label: "Free" },
   { value: "sell", label: "Sell" },
+  { value: "trade", label: "Trade" },
 ];
 
 const TAG_OPTIONS: Tag[] = ["course_material", "furniture", "decoration", "stationery"];

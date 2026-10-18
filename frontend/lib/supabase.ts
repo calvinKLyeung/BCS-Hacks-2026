@@ -11,18 +11,20 @@ if (!url || !anonKey) {
   console.error("Supabase env vars missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local");
 }
 
-/**
- * Local services are configured as localhost. When the app is opened from another device
- * (e.g. http://192.168.1.5:3000), point them at the same host the page came from instead.
- */
-export function forCurrentHost(serviceUrl: string): string {
-  if (typeof window === "undefined" || !/^https?:\/\//.test(serviceUrl)) return serviceUrl; // e.g. "/demo/x.jpg"
-  const u = new URL(serviceUrl);
-  if (["localhost", "127.0.0.1"].includes(u.hostname)) u.hostname = window.location.hostname;
-  return u.toString().replace(/\/$/, "");
+// In the browser, Supabase is reached through this site's /supabase proxy (see next.config.ts),
+// so the app works from any address: localhost, a LAN IP, or an HTTPS tunnel.
+const SUPABASE_PREFIX = /^https?:\/\/(localhost|127\.0\.0\.1):54321/;
+
+/** Rewrite a local Supabase URL (e.g. an uploaded photo) to go through the /supabase proxy. */
+export function viaProxy(serviceUrl: string): string {
+  return serviceUrl.replace(SUPABASE_PREFIX, "/supabase");
 }
 
-export const supabase = createClient(forCurrentHost(url || "http://localhost:54321"), anonKey || "missing-anon-key");
+export const supabase = createClient(
+  typeof window === "undefined" ? url || "http://127.0.0.1:54321" : `${window.location.origin}/supabase`,
+  anonKey || "missing-anon-key",
+  { auth: { storageKey: "campusswap-auth" } }, // fixed name, so logins survive address changes
+);
 
 export const ALLOWED_EMAIL_DOMAINS = (process.env.NEXT_PUBLIC_ALLOWED_EMAIL_DOMAINS || "student.ubc.ca,ubc.ca")
   .split(",")

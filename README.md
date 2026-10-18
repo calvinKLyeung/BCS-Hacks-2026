@@ -127,7 +127,7 @@ Two terminals, from the repo root:
 # terminal 1: backend (Windows: .venv\Scripts\activate instead of source)
 cd backend
 source .venv/bin/activate
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --port 8000
 
 # terminal 2: frontend
 cd frontend
@@ -137,7 +137,25 @@ npm run dev                          # open http://localhost:3000
 - Create an account on the Sign in page with a UBC email and a password (no email verification locally).
 - Database UI: http://127.0.0.1:54323
 
-**Open it on your phone or another laptop:** use the `Network:` URL that `npm run dev` prints (e.g. `http://192.168.1.5:3000`). Both devices must be on the same Wi-Fi, and that network must allow devices to reach each other (some campus networks block this; a phone hotspot works). Everything works from other devices, including sign-in. Browsers also only share your location over `localhost` or HTTPS, so other devices use the "I'm near" picker instead.
+### Open it on your phone (with location)
+
+Phones only share their location with HTTPS sites, so give the app a temporary HTTPS address with a free Cloudflare tunnel (no account needed). Install `cloudflared` once:
+
+- macOS: `brew install cloudflared`
+- Windows: `winget install Cloudflare.cloudflared`
+- Linux: see [the downloads page](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/)
+
+Then, with the app running, in a third terminal:
+
+```bash
+cloudflared tunnel --url http://localhost:3000
+```
+
+Open the `https://….trycloudflare.com` address it prints on any phone, on any network. It changes every time you run the command, and anyone with the link can open the app while it's running, so stop it (`Ctrl+C`) when you're done.
+
+Without a tunnel you can also use the `Network:` address `npm run dev` prints (e.g. `http://192.168.1.5:3000`) on the same Wi-Fi, but phones won't share location over plain `http`, and some campus networks block it entirely.
+
+**After pulling changes:** run `npx supabase migration up` to apply any new database changes (keeps your data), If new colours or styles don't show up, stop the frontend, delete `frontend/.next` and run `npm run dev` again.
 
 ## Demo data
 

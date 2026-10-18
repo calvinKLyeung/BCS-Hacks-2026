@@ -1,4 +1,4 @@
-export type PostType = "free" | "sell";
+export type PostType = "free" | "sell" | "trade";
 export type Tag = "course_material" | "furniture" | "decoration" | "stationery" | "other";
 export type Condition = "like_new" | "good" | "usable" | "poor";
 
@@ -28,6 +28,7 @@ export interface Listing {
   seller_name: string;
   created_at: string;
   distance_m: number | null;
+  trade_for?: string | null; // trade only: what the seller wants in exchange
   contact_email?: string | null; // only sent to signed-in viewers
 }
 
@@ -73,6 +74,7 @@ export const TAGS = Object.keys(TAG_LABELS) as Tag[];
 export const CONDITIONS = Object.keys(CONDITION_LABELS) as Condition[];
 
 export function priceLabel(l: Pick<Listing, "type" | "price">): string {
+  if (l.type === "trade") return "Trade";
   if (l.type === "free" || l.price === null) return "Free";
   return `$${Number.isInteger(l.price) ? l.price : l.price.toFixed(2)}`;
 }
@@ -84,3 +86,11 @@ export function walkMinutes(distanceM: number): number {
 export function distanceLabel(distanceM: number): string {
   return distanceM < 1000 ? `${distanceM} m` : `${(distanceM / 1000).toFixed(1)} km`;
 }
+
+// Full class names (not built dynamically) so Tailwind picks them up.
+export const TYPE_BADGE: Record<PostType, string> = {
+  free: "bg-free-bg text-free-text",
+  sell: "bg-sell-bg text-sell-text",
+  trade: "bg-trade-bg text-trade-text",
+};
+export const TYPE_SOLID: Record<PostType, string> = { free: "bg-free", sell: "bg-sell", trade: "bg-trade" };

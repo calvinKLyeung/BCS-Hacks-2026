@@ -16,6 +16,9 @@
   --color-sell: #b4531a;
   --color-sell-bg: #fbeadb;
   --color-sell-text: #8a3f12;
+  --color-trade: #6b4fa0;
+  --color-trade-bg: #efe9f7;
+  --color-trade-text: #4e3878;
 }
 
 body {
