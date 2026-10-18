@@ -125,14 +125,20 @@ function ItemDetail() {
 
         <div className="text-sm text-muted">Posted by {listing.seller_name}</div>
 
-        {!isSeller && (
+        {isSeller ? (
+          listing.contact_email && (
+            <p className="rounded-lg bg-panel p-3 text-sm">Signed-in buyers see your contact email: {listing.contact_email}</p>
+          )
+        ) : (
           <button onClick={contact} className="w-full min-h-12 rounded-xl bg-brand text-white font-semibold">
-            Contact seller
+            {session ? "Contact seller" : "Sign in to contact seller"}
           </button>
         )}
       </div>
 
-      {contactOpen && <ContactModal listing={listing} onClose={() => setContactOpen(false)} />}
+      {contactOpen && listing.contact_email && (
+        <ContactModal listing={listing} email={listing.contact_email} onClose={() => setContactOpen(false)} />
+      )}
     </div>
   );
 }

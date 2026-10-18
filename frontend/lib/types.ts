@@ -28,6 +28,7 @@ export interface Listing {
   seller_name: string;
   created_at: string;
   distance_m: number | null;
+  contact_email?: string | null; // only sent to signed-in viewers
 }
 
 export interface ItemDraft {

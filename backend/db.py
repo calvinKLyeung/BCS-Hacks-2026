@@ -35,11 +35,6 @@ def upsert_user(user_id: str, email: str, name: str) -> None:
     client().table("users").upsert({"id": user_id, "email": email, "name": name}).execute()
 
 
-def get_user(user_id: str) -> Optional[dict]:
-    res = client().table("users").select("id, email, name").eq("id", user_id).limit(1).execute()
-    return res.data[0] if res.data else None
-
-
 def get_user_by_email(email: str) -> Optional[dict]:
     res = client().table("users").select("id, email, name").eq("email", email).limit(1).execute()
     return res.data[0] if res.data else None
@@ -91,7 +86,6 @@ def get_listings_by_ids(ids: list[str]) -> list[dict]:
     return [_flatten(r) for r in res.data]
 
 
-def insert_message(listing_id: str, from_user: str, to_user: str, body: str) -> None:
-    client().table("messages").insert({
-        "listing_id": listing_id, "from_user": from_user, "to_user": to_user, "body": body,
-    }).execute()
+def get_contact_email(listing_id: str) -> Optional[str]:
+    res = client().table("listings").select("contact_email").eq("id", listing_id).limit(1).execute()
+    return res.data[0]["contact_email"] if res.data else None

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import Header, HTTPException
 
 import config
@@ -24,3 +26,13 @@ def get_current_user(authorization: str = Header("")) -> dict:
     name = email.split("@", 1)[0]
     db.upsert_user(user.id, email, name)
     return {"id": user.id, "email": email, "name": name}
+
+
+def get_optional_user(authorization: str = Header("")) -> Optional[dict]:
+    """Like get_current_user, but returns None instead of failing (for public pages)."""
+    if not authorization:
+        return None
+    try:
+        return get_current_user(authorization)
+    except HTTPException:
+        return None

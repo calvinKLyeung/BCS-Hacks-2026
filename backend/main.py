@@ -10,11 +10,10 @@ from fastapi.responses import JSONResponse
 import ai
 import config
 import db
-import email_service
 import storage
-from auth import get_current_user
+from auth import get_current_user, get_optional_user
 from geo import haversine
-from models import ContactRequest, ListingCreate, ListingOut, SearchRequest, SearchResponse
+from models import ListingCreate, ListingOut, SearchRequest, SearchResponse
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("main")
@@ -35,8 +34,6 @@ async def lifespan(app: FastAPI):
     except Exception:
         log.warning("Ollama not reachable at %s: photo analysis and AI answers will be skipped. "
                     "Run `ollama serve` and `ollama pull %s`.", config.OLLAMA_URL, config.OLLAMA_MODEL)
-    if not config.RESEND_API_KEY:
-        log.warning("RESEND_API_KEY is empty: contact emails will be printed to this console.")
     yield
 
 
@@ -69,7 +66,7 @@ def resolve_location(lat: Optional[float], lng: Optional[float]) -> tuple[float,
     return lat, lng
 
 
-def create_listing(seller_id: str, data: ListingCreate) -> str:
+def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> str:
     """Validate, embed and insert a listing. Shared by POST /listings and seed.py."""
     point = config.PICKUP_BY_ID.get(data.pickup_point_id)
     if point is None:
@@ -84,6 +81,10 @@ def create_listing(seller_id: str, data: ListingCreate) -> str:
     title = data.title.strip()
     if not title:
         raise HTTPException(400, "Title is required")
+
+    contact_email = (data.contact_email or "").strip() or seller_email
+    if not config.looks_like_email(contact_email):
+        raise HTTPException(400, "Contact email doesn't look like an email address")
 
     embedding = None
     try:
@@ -110,6 +111,7 @@ def create_listing(seller_id: str, data: ListingCreate) -> str:
         "pickup_name": point["name"],
         "lat": point["lat"],
         "lng": point["lng"],
+        "contact_email": contact_email,
         "embedding": embedding,
     })
 
@@ -148,8 +150,10 @@ def analyze(photos: list[UploadFile] = File(...), user: dict = Depends(get_curre
 
 @app.post("/listings", response_model=ListingOut)
 def post_listing(data: ListingCreate, user: dict = Depends(get_current_user)):
-    listing_id = create_listing(user["id"], data)
-    return db.get_listing(listing_id)
+    listing_id = create_listing(user["id"], user["email"], data)
+    row = db.get_listing(listing_id)
+    row["contact_email"] = db.get_contact_email(listing_id)
+    return row
 
 
 @app.get("/listings")
@@ -170,7 +174,8 @@ def get_listings(
 
 
 @app.get("/listings/{listing_id}", response_model=ListingOut)
-def get_one(listing_id: str, lat: Optional[float] = None, lng: Optional[float] = None):
+def get_one(listing_id: str, lat: Optional[float] = None, lng: Optional[float] = None,
+            user: Optional[dict] = Depends(get_optional_user)):
     try:
         row = db.get_listing(listing_id)
     except Exception:
@@ -179,6 +184,8 @@ def get_one(listing_id: str, lat: Optional[float] = None, lng: Optional[float] =
         raise HTTPException(404, "Listing not found")
     if lat is not None and lng is not None:
         with_distance(row, lat, lng)
+    if user:  # contact email is only shown to signed-in students
+        row["contact_email"] = db.get_contact_email(listing_id)
     return row
 
 
@@ -218,32 +225,3 @@ def ai_search(req: SearchRequest):
     items.sort(key=lambda r: rank.get(r["id"], len(rec)))  # stable: rest keep similarity order
     return {"answer": result["answer"] or None, "recommended_ids": rec, "items": items}
 
-
-@app.post("/contact")
-def contact(req: ContactRequest, user: dict = Depends(get_current_user)):
-    try:
-        listing = db.get_listing(req.listing_id)
-    except Exception:
-        listing = None
-    if listing is None:
-        raise HTTPException(404, "Listing not found")
-    if listing["seller_id"] == user["id"]:
-        raise HTTPException(400, "You can't message yourself about your own item")
-    seller = db.get_user(listing["seller_id"])
-    if seller is None:
-        raise HTTPException(404, "Seller not found")
-
-    message = req.message.strip()
-    if not message:
-        raise HTTPException(400, "Message can't be empty")
-
-    db.insert_message(listing["id"], user["id"], seller["id"], message)
-    try:
-        email_service.send_contact_email(
-            to=seller["email"], reply_to=user["email"], buyer_name=user["name"],
-            message=message, title=listing["title"], listing_id=listing["id"],
-        )
-    except Exception as e:
-        log.error("Sending contact email failed: %s", e)
-        raise HTTPException(502, "Message saved, but the email could not be sent. Try again later.")
-    return {"ok": True}
