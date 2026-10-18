@@ -2,6 +2,8 @@ import type { PickupPoint } from "./types";
 
 const STORAGE_KEY = "campusswap.nearPoint";
 export const DEFAULT_POINT_ID = "totem";
+/** Picker value meaning "measure from the device's own location". */
+export const MY_LOCATION = "me";
 
 /**
  * Browser geolocation. Resolves null if denied or unavailable.
@@ -20,9 +22,9 @@ export function getBrowserLocation(fresh = false): Promise<{ lat: number; lng: n
 
 export function loadFallbackPointId(): string {
   try {
-    return localStorage.getItem(STORAGE_KEY) || DEFAULT_POINT_ID;
+    return localStorage.getItem(STORAGE_KEY) || MY_LOCATION;
   } catch {
-    return DEFAULT_POINT_ID;
+    return MY_LOCATION;
   }
 }
 

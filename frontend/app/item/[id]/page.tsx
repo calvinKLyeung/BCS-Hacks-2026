@@ -6,15 +6,19 @@ import ContactModal from "@/components/ContactModal";
 import { ConditionBadge, TagBadge, TypeBadge, distanceLine } from "@/components/ListingCard";
 import MapView from "@/components/MapView";
 import { deleteListing, getListing, getPickupPoints, type Loc } from "@/lib/api";
-import { getBrowserLocation, loadFallbackPointId, pointById } from "@/lib/location";
+import { getBrowserLocation, loadFallbackPointId, MY_LOCATION, pointById } from "@/lib/location";
 import { useSession } from "@/lib/supabase";
 import type { Listing } from "@/lib/types";
 
+// Same choice as the Browse page's "I'm near" picker: a building, or the device location.
 async function resolveUserLoc(): Promise<Loc | null> {
-  const geo = await getBrowserLocation();
-  if (geo) return geo;
+  const nearId = loadFallbackPointId();
+  if (nearId === MY_LOCATION) {
+    const geo = await getBrowserLocation();
+    if (geo) return geo;
+  }
   const points = await getPickupPoints().catch(() => []);
-  const p = pointById(points, loadFallbackPointId());
+  const p = pointById(points, nearId); // falls back to the default building
   return p ? { lat: p.lat, lng: p.lng } : null;
 }
 
