@@ -1,4 +1,4 @@
-import { TAG_LABELS, type PostType, type Tag } from "@/lib/types";
+import { TAGS, TAG_LABELS, type PostType, type Tag } from "@/lib/types";
 
 interface Props {
   type: PostType | null;
@@ -8,13 +8,12 @@ interface Props {
 }
 
 const TYPE_OPTIONS: { value: PostType | null; label: string }[] = [
-  { value: null, label: "All" },
+  { value: null, label: "All types" },
   { value: "free", label: "Free" },
   { value: "sell", label: "Sell" },
   { value: "trade", label: "Trade" },
 ];
 
-const TAG_OPTIONS: Tag[] = ["course_material", "furniture", "decoration", "stationery"];
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -40,7 +39,10 @@ export default function Filters({ type, tag, onType, onTag }: Props) {
         </Chip>
       ))}
       <span className="w-px shrink-0 bg-line mx-1" />
-      {TAG_OPTIONS.map((t) => (
+      <Chip active={tag === null} onClick={() => onTag(null)}>
+        All categories
+      </Chip>
+      {TAGS.map((t) => (
         <Chip key={t} active={tag === t} onClick={() => onTag(tag === t ? null : t)}>
           {TAG_LABELS[t]}
         </Chip>
