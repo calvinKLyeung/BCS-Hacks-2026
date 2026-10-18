@@ -1,0 +1,10 @@
+.env
+.env.local
+.venv
+node_modules
+__pycache__/
+.DS_Store
+.idea/
+NOTES.md
+supabase/.branches
+supabase/.temp
