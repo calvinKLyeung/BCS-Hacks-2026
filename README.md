@@ -129,7 +129,7 @@ Two terminals, from the repo root:
 # terminal 1: backend (Windows: .venv\Scripts\activate instead of source)
 cd backend
 source .venv/bin/activate
-uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 # terminal 2: frontend
 cd frontend
@@ -138,6 +138,8 @@ npm run dev                          # open http://localhost:3000
 
 - Sign-in emails land in the local test inbox: http://127.0.0.1:54324
 - Database UI: http://127.0.0.1:54323
+
+**Open it on your phone or another laptop:** use the `Network:` URL that `npm run dev` prints (e.g. `http://192.168.1.5:3000`). Both devices must be on the same Wi-Fi, and that network must allow devices to reach each other (some campus networks block this; a phone hotspot works). Browsing, AI search and the map work from other devices. Sign-in only works on the computer running the app, because local Supabase's sign-in links point at `127.0.0.1`. Browsers also only share your location over `localhost` or HTTPS, so other devices use the "I'm near" picker instead.
 
 ## Demo data
 

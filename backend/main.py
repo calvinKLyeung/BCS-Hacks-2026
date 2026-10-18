@@ -50,6 +50,9 @@ async def not_configured(request: Request, exc: db.NotConfigured):
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[config.FRONTEND_URL],
+    # Also allow the frontend when opened from another device via this machine's IP.
+    # Safe for this app: auth is a bearer token, not cookies.
+    allow_origin_regex=r"^http://[^/]+:3000$",
     allow_methods=["*"],
     allow_headers=["*"],
 )
