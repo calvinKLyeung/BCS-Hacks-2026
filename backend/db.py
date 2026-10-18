@@ -89,3 +89,9 @@ def get_listings_by_ids(ids: list[str]) -> list[dict]:
 def get_contact_email(listing_id: str) -> Optional[str]:
     res = client().table("listings").select("contact_email").eq("id", listing_id).limit(1).execute()
     return res.data[0]["contact_email"] if res.data else None
+
+
+def delete_listing(listing_id: str) -> None:
+    # messages reference listings; that table is unused now but may hold old rows
+    client().table("messages").delete().eq("listing_id", listing_id).execute()
+    client().table("listings").delete().eq("id", listing_id).execute()

@@ -22,3 +22,11 @@ def upload_photo(user_id: str, jpeg_bytes: bytes) -> str:
     bucket = db.client().storage.from_(config.BUCKET)
     bucket.upload(path, jpeg_bytes, {"content-type": "image/jpeg"})
     return bucket.get_public_url(path).rstrip("?")
+
+
+def delete_photos(urls: list[str]) -> None:
+    """Remove uploaded photos from storage (demo photos under /demo/ are left alone)."""
+    marker = f"/object/public/{config.BUCKET}/"
+    paths = [u.split(marker, 1)[1] for u in urls if marker in u]
+    if paths:
+        db.client().storage.from_(config.BUCKET).remove(paths)

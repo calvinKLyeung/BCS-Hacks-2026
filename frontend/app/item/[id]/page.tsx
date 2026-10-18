@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import ContactModal from "@/components/ContactModal";
 import { ConditionBadge, TagBadge, TypeBadge, distanceLine } from "@/components/ListingCard";
 import MapView from "@/components/MapView";
-import { getListing, getPickupPoints, type Loc } from "@/lib/api";
+import { deleteListing, getListing, getPickupPoints, type Loc } from "@/lib/api";
 import { getBrowserLocation, loadFallbackPointId, pointById } from "@/lib/location";
 import { useSession } from "@/lib/supabase";
 import type { Listing } from "@/lib/types";
@@ -36,6 +36,8 @@ function ItemDetail() {
   const [error, setError] = useState("");
   const [photoIdx, setPhotoIdx] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
+  const [removing, setRemoving] = useState(false);
+  const [removeError, setRemoveError] = useState("");
 
   useEffect(() => {
     getListing(id).then(setListing).catch((e: Error) => setError(e.message));
@@ -55,6 +57,19 @@ function ItemDetail() {
   function contact() {
     if (!session) router.push("/login");
     else setContactOpen(true);
+  }
+
+  async function remove() {
+    if (!window.confirm(`Remove "${listing!.title}"? This can't be undone.`)) return;
+    setRemoving(true);
+    setRemoveError("");
+    try {
+      await deleteListing(id);
+      router.push("/");
+    } catch (e) {
+      setRemoveError((e as Error).message);
+      setRemoving(false);
+    }
   }
 
   return (
@@ -139,9 +154,19 @@ function ItemDetail() {
         <div className="text-sm text-muted">Posted by {listing.seller_name}</div>
 
         {isSeller ? (
-          listing.contact_email && (
-            <p className="rounded-lg bg-panel p-3 text-sm">Signed-in buyers see your contact email: {listing.contact_email}</p>
-          )
+          <div className="space-y-3">
+            {listing.contact_email && (
+              <p className="rounded-lg bg-panel p-3 text-sm">Signed-in buyers see your contact email: {listing.contact_email}</p>
+            )}
+            <button
+              onClick={remove}
+              disabled={removing}
+              className="w-full min-h-12 rounded-xl border border-red-300 text-red-700 font-semibold hover:bg-red-50 disabled:opacity-60"
+            >
+              {removing ? "Removing…" : "Remove listing"}
+            </button>
+            {removeError && <p className="text-sm text-red-700">{removeError}</p>}
+          </div>
         ) : (
           <button onClick={contact} className="w-full min-h-12 rounded-xl bg-brand text-white font-semibold">
             {session ? "Contact seller" : "Sign in to contact seller"}
