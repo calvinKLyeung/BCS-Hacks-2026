@@ -1,7 +1,7 @@
-import { supabase } from "./supabase";
+import { forCurrentHost, supabase } from "./supabase";
 import type { AnalyzeResponse, Listing, PickupPoint, PostType, SearchResponse, Tag } from "./types";
 
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+const BASE = forCurrentHost(process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000");
 
 async function authHeader(): Promise<Record<string, string>> {
   const { data } = await supabase.auth.getSession();

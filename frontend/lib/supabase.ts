@@ -11,7 +11,18 @@ if (!url || !anonKey) {
   console.error("Supabase env vars missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local");
 }
 
-export const supabase = createClient(url || "http://localhost:54321", anonKey || "missing-anon-key");
+/**
+ * Local services are configured as localhost. When the app is opened from another device
+ * (e.g. http://192.168.1.5:3000), point them at the same host the page came from instead.
+ */
+export function forCurrentHost(serviceUrl: string): string {
+  if (typeof window === "undefined") return serviceUrl;
+  const u = new URL(serviceUrl);
+  if (["localhost", "127.0.0.1"].includes(u.hostname)) u.hostname = window.location.hostname;
+  return u.toString().replace(/\/$/, "");
+}
+
+export const supabase = createClient(forCurrentHost(url || "http://localhost:54321"), anonKey || "missing-anon-key");
 
 export const ALLOWED_EMAIL_DOMAINS = (process.env.NEXT_PUBLIC_ALLOWED_EMAIL_DOMAINS || "student.ubc.ca,ubc.ca")
   .split(",")
