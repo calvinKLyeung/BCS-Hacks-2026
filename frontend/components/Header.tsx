@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { displayName, supabase, useSession } from "@/lib/supabase";
 
 export default function Header() {
   const session = useSession();
+  const router = useRouter();
 
   return (
     <header className="border-b border-line bg-white">
@@ -27,7 +29,9 @@ export default function Header() {
           </Link>
           {session === undefined ? null : session ? (
             <>
-              <span className="hidden md:inline px-2 text-muted">{displayName(session)}</span>
+              <Link href="/login" title="Your account" className="hidden md:flex px-2 min-h-11 items-center rounded-lg text-muted hover:bg-panel">
+                {displayName(session)}
+              </Link>
               <button
                 onClick={() => supabase.auth.signOut()}
                 className="px-3 min-h-11 rounded-lg hover:bg-panel"
@@ -36,9 +40,13 @@ export default function Header() {
               </button>
             </>
           ) : (
-            <Link href="/login" className="px-3 min-h-11 flex items-center rounded-lg hover:bg-panel">
+            <button
+              // Come back to this page after signing in.
+              onClick={() => router.push(`/login?next=${encodeURIComponent(window.location.pathname)}`)}
+              className="px-3 min-h-11 rounded-lg hover:bg-panel"
+            >
               Sign in
-            </Link>
+            </button>
           )}
         </nav>
       </div>

@@ -23,9 +23,8 @@ def get_current_user(authorization: str = Header("")) -> dict:
     if not config.email_allowed(email):
         raise HTTPException(403, "This email domain is not allowed on CampusSwap.")
 
-    name = email.split("@", 1)[0]
-    db.upsert_user(user.id, email, name)
-    return {"id": user.id, "email": email, "name": name}
+    db.upsert_user(user.id, email)
+    return {"id": user.id, "email": email}
 
 
 def get_optional_user(authorization: str = Header("")) -> Optional[dict]:

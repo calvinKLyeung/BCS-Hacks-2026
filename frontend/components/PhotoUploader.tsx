@@ -38,7 +38,6 @@ export default function PhotoUploader({ files, onChange, disabled }: Props) {
             <input
               type="file"
               accept="image/*"
-              capture="environment"
               multiple
               className="sr-only"
               onChange={(e) => {

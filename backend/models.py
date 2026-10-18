@@ -69,6 +69,14 @@ class ListingOut(BaseModel):
     contact_email: Optional[str] = None  # only filled in for signed-in viewers
 
 
+class DisplayName(BaseModel):
+    name: str = Field(min_length=1, max_length=40)
+
+
+class PhotoList(BaseModel):
+    photos: list[str] = Field(max_length=4)
+
+
 class SearchRequest(BaseModel):
     query: str = ""
     lat: Optional[float] = None

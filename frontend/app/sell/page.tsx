@@ -7,8 +7,8 @@ import BuildingPicker from "@/components/BuildingPicker";
 import { ConditionBadge } from "@/components/ListingCard";
 import PhotoUploader from "@/components/PhotoUploader";
 import TagPicker from "@/components/TagPicker";
-import { analyzePhotos, createListing, getPickupPoints } from "@/lib/api";
-import { useSession } from "@/lib/supabase";
+import { analyzePhotos, createListing, deleteListingPhotos, getPickupPoints } from "@/lib/api";
+import { supabase, useSession } from "@/lib/supabase";
 import {
   CONDITIONS,
   CONDITION_LABELS,
@@ -19,6 +19,8 @@ import {
   type PostType,
   type Tag,
 } from "@/lib/types";
+
+const MAX_PRICE = 99_999_999.99; // matches the backend / database limit
 
 const inputClass = "w-full min-h-11 rounded-lg border border-line bg-white px-3 focus:outline-2 focus:outline-brand";
 
@@ -47,7 +49,12 @@ export default function SellPage() {
   const [postError, setPostError] = useState("");
 
   useEffect(() => {
-    if (session === null) router.replace("/login");
+    if (session !== null) return;
+    // Next keeps this page alive in the background, so `session` can be stale when it reappears
+    // (e.g. right after signing in). Re-check the real session before sending anyone to sign in.
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) router.replace("/login?next=/sell");
+    });
   }, [session, router]);
 
   useEffect(() => {
@@ -72,6 +79,8 @@ export default function SellPage() {
   }
 
   function startOver() {
+    // Photos were uploaded during analysis; if they never became a listing, delete them.
+    if (analysis && !postedId) deleteListingPhotos(analysis.photos).catch(() => {});
     setAnalysis(null);
     setFiles([]);
     setErrors({});
@@ -96,6 +105,7 @@ export default function SellPage() {
     const priceNum = Number(price);
     if (postType === "sell" && (price.trim() === "" || isNaN(priceNum) || priceNum < 0))
       errs.price = "Enter a price of 0 or more.";
+    else if (postType === "sell" && priceNum > MAX_PRICE) errs.price = "Price must be $99,999,999.99 or less.";
     if (!pickupId) errs.pickup = "Choose a pickup building.";
     const contact = (contactEmail ?? session?.user.email ?? "").trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) errs.contact = "Enter a valid email.";

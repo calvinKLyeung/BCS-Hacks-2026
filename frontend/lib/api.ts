@@ -56,10 +56,13 @@ export function getPickupPoints() {
   return request<PickupPoint[]>("/pickup-points");
 }
 
-export function getListings(f: { type?: PostType | null; tag?: Tag | null; q?: string; loc?: Loc | null }) {
-  return request<{ items: Listing[] }>(
-    `/listings${qs({ type: f.type, tag: f.tag, q: f.q, lat: f.loc?.lat, lng: f.loc?.lng })}`,
-  ).then((r) => ({ items: r.items.map(withPhotos) }));
+export const PAGE_SIZE = 50;
+
+/** One page of listings, nearest first. `has_more` says whether another page exists. */
+export function getListings(f: { type?: PostType | null; tag?: Tag | null; q?: string; loc?: Loc | null; offset?: number }) {
+  return request<{ items: Listing[]; has_more: boolean }>(
+    `/listings${qs({ type: f.type, tag: f.tag, q: f.q, lat: f.loc?.lat, lng: f.loc?.lng, limit: PAGE_SIZE, offset: f.offset })}`,
+  ).then((r) => ({ items: r.items.map(withPhotos), has_more: r.has_more }));
 }
 
 // Sends the session token if signed in, so the seller's contact email is included.
@@ -83,4 +86,16 @@ export function createListing(body: Omit<Listing, "id" | "pickup_name" | "lat" |
 
 export function deleteListing(id: string) {
   return request<{ ok: boolean }>(`/listings/${encodeURIComponent(id)}`, { method: "DELETE" }, true);
+}
+
+export function deleteListingPhotos(photos: string[]) {
+  return request<{ deleted: number }>("/photos/discard", json({ photos }), true);
+}
+
+export function getMe() {
+  return request<{ email: string; name: string | null }>("/me", {}, true);
+}
+
+export function setDisplayName(name: string) {
+  return request<{ email: string; name: string }>("/me", { ...json({ name }), method: "PUT" }, true);
 }
