@@ -16,7 +16,7 @@ if (!url || !anonKey) {
  * (e.g. http://192.168.1.5:3000), point them at the same host the page came from instead.
  */
 export function forCurrentHost(serviceUrl: string): string {
-  if (typeof window === "undefined") return serviceUrl;
+  if (typeof window === "undefined" || !/^https?:\/\//.test(serviceUrl)) return serviceUrl; // e.g. "/demo/x.jpg"
   const u = new URL(serviceUrl);
   if (["localhost", "127.0.0.1"].includes(u.hostname)) u.hostname = window.location.hostname;
   return u.toString().replace(/\/$/, "");
