@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #17201b;
+  --color-muted: #4a564f;
+  --color-line: #dce2dc;
+  --color-panel: #f4f6f2;
+  --color-brand: #1f6b4a;
+
+  --color-free: #1f6b4a;
+  --color-free-bg: #e3f1e8;
+  --color-free-text: #165236;
+  --color-sell: #b4531a;
+  --color-sell-bg: #fbeadb;
+  --color-sell-text: #8a3f12;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
