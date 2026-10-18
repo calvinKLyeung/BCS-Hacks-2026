@@ -6,9 +6,11 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import type { Loc } from "@/lib/api";
-import { distanceLabel, priceLabel, TYPE_SOLID, type Listing } from "@/lib/types";
+import { distanceLabel, priceLabel, TYPE_BADGE, TYPE_SOLID, type Listing } from "@/lib/types";
 
 const CAMPUS_CENTER: [number, number] = [49.2606, -123.246];
+// Keep opened popups clear of the zoom and location buttons in the map corners.
+const POPUP_PADDING: [number, number] = [56, 56];
 
 export interface MapProps {
   listings: Listing[];
@@ -80,6 +82,29 @@ function escapeHtml(s: string): string {
   return s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
+// Listings at the same building share exact coordinates, so group them into one marker.
+function groupByPlace(listings: Listing[]): Listing[][] {
+  const groups = new Map<string, Listing[]>();
+  for (const l of listings) {
+    const key = `${l.lat},${l.lng}`;
+    groups.set(key, [...(groups.get(key) || []), l]);
+  }
+  return [...groups.values()];
+}
+
+// Round marker with the number of items at a building. Coloured by type when they all match.
+function countIcon(group: Listing[], selected: boolean): L.DivIcon {
+  const types = new Set(group.map((l) => l.type));
+  const colour = types.size === 1 ? TYPE_SOLID[group[0].type] : "bg-ink";
+  const ring = selected ? "ring-2 ring-ink ring-offset-1" : "";
+  return L.divIcon({
+    className: "",
+    iconSize: [0, 0],
+    popupAnchor: [0, -20],
+    html: `<div class="-translate-x-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-sm font-bold text-white shadow-md ${colour} ${ring}" aria-label="${group.length} items">${group.length}</div>`,
+  });
+}
+
 // Pill-shaped pin ("Free · Desk" / "$25 · Chair"), anchored at its bottom centre.
 function pinIcon(l: Listing, selected: boolean): L.DivIcon {
   const colour = TYPE_SOLID[l.type];
@@ -131,32 +156,81 @@ export default function LeafletMap({ listings, userLoc, selectedId, onSelect, ce
             />
           )}
 
-          {listings.map((l) => (
-            <Marker
-              key={l.id}
-              position={[l.lat, l.lng]}
-              icon={pinIcon(l, l.id === selectedId)}
-              zIndexOffset={l.id === selectedId ? 1000 : 0}
-              eventHandlers={{ click: () => onSelect?.(l.id) }}
-            >
-              <Popup>
-                <div className="w-44 text-ink">
-                  {l.photos[0] && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={l.photos[0]} alt="" className="mb-1.5 h-24 w-full rounded object-cover" />
-                  )}
-                  <div className="font-semibold leading-snug">{l.title}</div>
-                  <div className="text-xs text-muted">
-                    {priceLabel(l)}
-                    {l.distance_m != null && ` · ${distanceLabel(l.distance_m)}`}
+          {groupByPlace(listings).map((group) => {
+            const selected = group.some((l) => l.id === selectedId);
+            if (group.length === 1) {
+              const l = group[0];
+              return (
+                <Marker
+                  key={l.id}
+                  position={[l.lat, l.lng]}
+                  icon={pinIcon(l, selected)}
+                  zIndexOffset={selected ? 1000 : 0}
+                  eventHandlers={{ click: () => onSelect?.(l.id) }}
+                >
+                  <Popup autoPanPadding={POPUP_PADDING}>
+                    <div className="w-44 text-ink">
+                      {l.photos[0] && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={l.photos[0]} alt="" className="mb-1.5 h-24 w-full rounded object-cover" />
+                      )}
+                      <div className="font-semibold leading-snug">{l.title}</div>
+                      <div className="text-xs text-muted">
+                        {priceLabel(l)}
+                        {l.distance_m != null && ` · ${distanceLabel(l.distance_m)}`}
+                      </div>
+                      <Link href={`/item/${l.id}`} className="mt-1 inline-block font-medium text-brand">
+                        View
+                      </Link>
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            }
+            // Several items at one building: a count marker whose popup lists them all.
+            const first = group[0];
+            return (
+              <Marker
+                key={`${first.lat},${first.lng}`}
+                position={[first.lat, first.lng]}
+                icon={countIcon(group, selected)}
+                zIndexOffset={selected ? 1000 : 500}
+              >
+                <Popup autoPanPadding={POPUP_PADDING}>
+                  <div className="w-60 text-ink">
+                    <div className="mb-1.5 font-semibold leading-snug">
+                      {first.pickup_name} · {group.length} items
+                    </div>
+                    <ul className="max-h-60 space-y-1 overflow-y-auto">
+                      {group.map((l) => (
+                        <li
+                          key={l.id}
+                          onClick={() => onSelect?.(l.id)}
+                          className={`flex cursor-pointer items-center gap-2 rounded p-1 hover:bg-panel ${l.id === selectedId ? "bg-panel" : ""}`}
+                        >
+                          <div className="h-10 w-10 shrink-0 overflow-hidden rounded bg-panel">
+                            {l.photos[0] && (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={l.photos[0]} alt="" className="h-full w-full object-cover" />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm font-medium">{l.title}</div>
+                            <span className={`rounded-full px-1.5 py-px text-[11px] font-semibold ${TYPE_BADGE[l.type]}`}>
+                              {priceLabel(l)}
+                            </span>
+                          </div>
+                          <Link href={`/item/${l.id}`} onClick={(e) => e.stopPropagation()} className="shrink-0 px-1 text-sm font-medium text-brand">
+                            View
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <Link href={`/item/${l.id}`} className="mt-1 inline-block font-medium text-brand">
-                    View
-                  </Link>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
+                </Popup>
+              </Marker>
+            );
+          })}
         </MapContainer>
       )}
     </div>
