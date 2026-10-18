@@ -9,3 +9,5 @@ NOTES.md
 supabase/.branches
 supabase/.temp
 PLAN.md
+tests/
+CLAUDE.local.md
