@@ -8,12 +8,12 @@
   --color-muted: #4a564f;
   --color-line: #dce2dc;
   --color-panel: #f4f6f2;
-  --color-brand: #1f6b4a;
+  --color-brand: #14523a; /* deeper than --color-free so buttons/links don't read as "Free" */
 
   --color-free: #1f6b4a;
   --color-free-bg: #e3f1e8;
   --color-free-text: #165236;
-  --color-sell: #b4531a;
+  --color-sell: #9b4819; /* toned to match Free/Trade lightness; passes 3:1 on map greenery */
   --color-sell-bg: #fbeadb;
   --color-sell-text: #8a3f12;
   --color-trade: #6b4fa0;
