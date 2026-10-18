@@ -33,19 +33,20 @@ BCSHacks2026/
 │   ├── seed.sql               Demo listings, loaded automatically
 │   └── config.toml            Local Supabase settings
 │
+├── docs/
+│   └── architecture.drawio.svg  Architecture diagram (editable in draw.io)
+│
 └── seed/
     ├── photos/                Drop photos here to make new demo data
     ├── seed.py                Photos → AI-drafted listings in the database
     └── export_demo.py         Database → supabase/seed.sql + frontend/public/demo/
 ```
 
-How a request flows:
+## Architecture
 
-```
-Browser ──► frontend (:3000) ──► backend (:8000) ──► Supabase (:54321)   database, photo storage
-                │                      ├───────────► Ollama (:11434)     photo analysis, search answers
-                └─ sign-in only ──► Supabase Auth    └─► local embedding model (in-process)
-```
+![CampusSwap architecture](docs/architecture.drawio.svg)
+
+To edit the diagram, open `docs/architecture.drawio.svg` in [draw.io](https://app.diagrams.net) (web, desktop app, or the VS Code extension) and save it back to the same file.
 
 ## 1. Prerequisites (one time)
 

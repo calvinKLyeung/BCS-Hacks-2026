@@ -189,6 +189,24 @@ def get_one(listing_id: str, lat: Optional[float] = None, lng: Optional[float] =
     return row
 
 
+@app.delete("/listings/{listing_id}")
+def delete_listing(listing_id: str, user: dict = Depends(get_current_user)):
+    try:
+        row = db.get_listing(listing_id)
+    except Exception:
+        row = None  # e.g. malformed uuid
+    if row is None:
+        raise HTTPException(404, "Listing not found")
+    if row["seller_id"] != user["id"]:
+        raise HTTPException(403, "You can only remove your own listings")
+    db.delete_listing(listing_id)
+    try:
+        storage.delete_photos(row["photos"])
+    except Exception as e:
+        log.warning("Listing removed, but deleting its photos failed: %s", e)
+    return {"ok": True}
+
+
 @app.post("/ai-search", response_model=SearchResponse)
 def ai_search(req: SearchRequest):
     lat, lng = resolve_location(req.lat, req.lng)

@@ -80,3 +80,7 @@ export function analyzePhotos(files: File[]) {
 export function createListing(body: Omit<Listing, "id" | "pickup_name" | "lat" | "lng" | "seller_id" | "seller_name" | "created_at" | "distance_m">) {
   return request<Listing>("/listings", json(body), true).then(withPhotos);
 }
+
+export function deleteListing(id: string) {
+  return request<{ ok: boolean }>(`/listings/${encodeURIComponent(id)}`, { method: "DELETE" }, true);
+}
