@@ -122,7 +122,16 @@ cp frontend/.env.local.example frontend/.env.local
 
 ## 3. Run
 
-Two terminals, from the repo root:
+First, each session (e.g. after a restart):
+
+1. Open **Docker Desktop** and wait until it says it's running (Linux: Docker Engine starts on its own).
+2. Start the database, from the repo root (takes a few seconds; your data is kept between runs):
+   ```bash
+   npx supabase start -x imgproxy,realtime,edge-runtime,logflare,vector,supavisor
+   ```
+3. Make sure Ollama is running: it starts on its own after install (macOS/Linux service, Windows tray icon). Check with `ollama list`.
+
+Then two terminals, from the repo root:
 
 ```bash
 # terminal 1: backend (Windows: .venv\Scripts\activate instead of source)
@@ -156,7 +165,7 @@ Open the `https://….trycloudflare.com` address it prints on any phone, on any 
 
 Without a tunnel you can also use the `Network:` address `npm run dev` prints (e.g. `http://192.168.1.5:3000`) on the same Wi-Fi, but phones won't share location over plain `http`, and some campus networks block it entirely.
 
-**After pulling changes:** run `npx supabase migration up` to apply any new database changes (keeps your data), If new colours or styles don't show up, stop the frontend, delete `frontend/.next` and run `npm run dev` again.
+**After pulling changes:** run `npx supabase migration up` to apply any new database changes (keeps your data). If new colours or styles don't show up, stop the frontend, delete `frontend/.next` and run `npm run dev` again.
 
 ## Demo data
 

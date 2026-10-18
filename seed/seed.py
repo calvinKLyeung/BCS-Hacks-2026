@@ -56,6 +56,7 @@ def get_seed_user(email: str) -> str:
         return existing["id"]
     user_id = str(uuid.uuid4())
     db.upsert_user(user_id, email)
+    db.set_user_name(user_id, "CampusSwap demo")  # display name shown as "Posted by …"
     return user_id
 
 
