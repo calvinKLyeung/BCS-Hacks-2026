@@ -102,6 +102,8 @@ def create_listing(seller_id: str, seller_email: str, data: ListingCreate) -> st
         "type": data.type,
         "price": price,
         "trade_for": trade_for or None,
+        "available_from": data.available_from.isoformat() if data.available_from else None,
+        "available_until": data.available_until.isoformat() if data.available_until else None,
         "title": title,
         "description": data.description.strip(),
         "tag": data.tag,

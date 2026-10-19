@@ -10,7 +10,7 @@ import config
 # Never select `embedding`; seller name comes from the users table via the seller_id FK.
 LISTING_COLUMNS = (
     "id, seller_id, type, price, title, description, tag, condition, condition_reason, "
-    "visible_defects, photos, trade_for, pickup_point_id, pickup_name, lat, lng, created_at, users(name)"
+    "visible_defects, photos, trade_for, available_from, available_until, pickup_point_id, pickup_name, lat, lng, created_at, users(name)"
 )
 
 

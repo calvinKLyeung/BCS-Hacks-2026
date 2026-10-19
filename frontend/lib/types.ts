@@ -29,6 +29,8 @@ export interface Listing {
   created_at: string;
   distance_m: number | null;
   trade_for?: string | null; // trade only: what the seller wants in exchange
+  available_from?: string | null; // YYYY-MM-DD
+  available_until?: string | null;
   contact_email?: string | null; // only sent to signed-in viewers
 }
 
@@ -77,6 +79,20 @@ export function priceLabel(l: Pick<Listing, "type" | "price">): string {
   if (l.type === "trade") return "Trade";
   if (l.type === "free" || l.price === null) return "Free";
   return `$${Number.isInteger(l.price) ? l.price : l.price.toFixed(2)}`;
+}
+
+function shortDate(ymd: string): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  // Built from parts so it stays the same calendar day in every time zone.
+  return new Date(y, m - 1, d).toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+}
+
+export function availabilityLabel(l: Pick<Listing, "available_from" | "available_until">): string | null {
+  const from = l.available_from, until = l.available_until;
+  if (from && until) return `Available ${shortDate(from)} – ${shortDate(until)}`;
+  if (from) return `Available from ${shortDate(from)}`;
+  if (until) return `Available until ${shortDate(until)}`;
+  return null;
 }
 
 export function walkMinutes(distanceM: number): number {

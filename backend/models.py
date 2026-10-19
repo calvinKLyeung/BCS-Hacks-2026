@@ -1,6 +1,7 @@
+from datetime import date
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from config import TAGS, CONDITIONS
 
@@ -44,6 +45,14 @@ class ListingCreate(BaseModel):
     photos: list[str] = Field(min_length=1, max_length=4)
     pickup_point_id: str
     contact_email: Optional[str] = Field(default=None, max_length=254)  # defaults to the account email
+    available_from: Optional[date] = None
+    available_until: Optional[date] = None
+
+    @model_validator(mode="after")
+    def _availability_order(self):
+        if self.available_from and self.available_until and self.available_until < self.available_from:
+            raise ValueError("available_until can't be before available_from")
+        return self
 
 
 class ListingOut(BaseModel):
@@ -66,6 +75,8 @@ class ListingOut(BaseModel):
     created_at: str
     distance_m: Optional[int] = None
     trade_for: Optional[str] = None
+    available_from: Optional[str] = None  # YYYY-MM-DD
+    available_until: Optional[str] = None
     contact_email: Optional[str] = None  # only filled in for signed-in viewers
 
 

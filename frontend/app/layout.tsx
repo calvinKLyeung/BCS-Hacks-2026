@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${grotesk.variable} ${plex.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      {/* Extensions like Grammarly add attributes to <body> before React loads. */}
+      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         <Header />
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-5">{children}</main>
       </body>

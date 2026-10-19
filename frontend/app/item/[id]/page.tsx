@@ -8,7 +8,7 @@ import MapView from "@/components/MapView";
 import { deleteListing, getListing, getPickupPoints, type Loc } from "@/lib/api";
 import { getBrowserLocation, loadFallbackPointId, MY_LOCATION, pointById } from "@/lib/location";
 import { useSession } from "@/lib/supabase";
-import type { Listing } from "@/lib/types";
+import { availabilityLabel, type Listing } from "@/lib/types";
 
 // Same choice as the Browse page's "I'm near" picker: a building, or the device location.
 async function resolveUserLoc(): Promise<Loc | null> {
@@ -116,6 +116,7 @@ function ItemDetail() {
             <span className="font-semibold">Looking for:</span> {listing.trade_for}
           </p>
         )}
+        {availabilityLabel(listing) && <p className="font-medium">{availabilityLabel(listing)}</p>}
         <p className="whitespace-pre-line">{listing.description}</p>
 
         {(listing.condition_reason || listing.visible_defects.length > 0) && (
