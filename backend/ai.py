@@ -83,7 +83,8 @@ def answer_search(query: str, items: list[dict]) -> dict:
     # walk_min is precomputed (80 m/min, same as the UI): small models get the arithmetic wrong.
     compact = [
         {k: it[k] for k in ("id", "title", "type", "price", "tag", "condition",
-                            "condition_reason", "trade_for", "pickup_name", "distance_m")}
+                            "condition_reason", "trade_for", "available_from", "available_until",
+                            "pickup_name", "distance_m")}
         | {"walk_min": max(1, math.ceil(it["distance_m"] / 80))}
         for it in items
     ]

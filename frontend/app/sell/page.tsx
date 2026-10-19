@@ -41,6 +41,8 @@ export default function SellPage() {
   const [condition, setCondition] = useState<Condition>("usable");
   const [price, setPrice] = useState("");
   const [tradeFor, setTradeFor] = useState("");
+  const [availableFrom, setAvailableFrom] = useState(""); // YYYY-MM-DD, "" = not set
+  const [availableUntil, setAvailableUntil] = useState("");
   const [pickupId, setPickupId] = useState("");
   const [contactEmail, setContactEmail] = useState<string | null>(null); // null = use account email
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -92,6 +94,8 @@ export default function SellPage() {
     setPostedId(null);
     setPrice("");
     setTradeFor("");
+    setAvailableFrom("");
+    setAvailableUntil("");
     setPickupId("");
   }
 
@@ -106,6 +110,9 @@ export default function SellPage() {
     if (postType === "sell" && (price.trim() === "" || isNaN(priceNum) || priceNum < 0))
       errs.price = "Enter a price of 0 or more.";
     else if (postType === "sell" && priceNum > MAX_PRICE) errs.price = "Price must be $99,999,999.99 or less.";
+    // Same-format YYYY-MM-DD strings compare correctly as text.
+    if (availableFrom && availableUntil && availableUntil < availableFrom)
+      errs.availability = "The end date can't be before the start date.";
     if (!pickupId) errs.pickup = "Choose a pickup building.";
     const contact = (contactEmail ?? session?.user.email ?? "").trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) errs.contact = "Enter a valid email.";
@@ -119,6 +126,8 @@ export default function SellPage() {
         type: postType,
         price: postType === "sell" ? priceNum : null,
         trade_for: postType === "trade" ? tradeFor.trim() || null : null,
+        available_from: availableFrom || null,
+        available_until: availableUntil || null,
         title: title.trim(),
         description: description.trim(),
         tag,
@@ -285,6 +294,35 @@ export default function SellPage() {
                 />
               </div>
             )}
+            <div className="space-y-1">
+              <span className="text-sm font-medium">Pickup dates (optional)</span>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <label className="text-xs text-muted" htmlFor="availableFrom">Available from</label>
+                  <input
+                    id="availableFrom"
+                    type="date"
+                    value={availableFrom}
+                    max={availableUntil || undefined}
+                    onChange={(e) => setAvailableFrom(e.target.value)}
+                    className={inputClass}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-muted" htmlFor="availableUntil">Available until</label>
+                  <input
+                    id="availableUntil"
+                    type="date"
+                    value={availableUntil}
+                    min={availableFrom || undefined}
+                    onChange={(e) => setAvailableUntil(e.target.value)}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <p className="text-xs text-muted">e.g. the day you move out, so buyers know when to pick it up.</p>
+              {errors.availability && <p className="text-sm text-red-700">{errors.availability}</p>}
+            </div>
             <div className="space-y-1">
               <label className="text-sm font-medium" htmlFor="pickup">Pickup building</label>
               <BuildingPicker id="pickup" points={points} value={pickupId} onChange={setPickupId} />

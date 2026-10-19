@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   CONDITION_LABELS,
   TAG_LABELS,
+  availabilityLabel,
   distanceLabel,
   priceLabel,
   TYPE_BADGE,
@@ -73,6 +74,7 @@ export default function ListingCard({ listing, aiPick, highlighted, onSelect }: 
         </div>
         <h3 className="mt-1 font-semibold leading-snug truncate">{listing.title}</h3>
         {listing.trade_for && <p className="text-sm text-trade-text truncate">Looking for: {listing.trade_for}</p>}
+        {availabilityLabel(listing) && <p className="text-sm font-medium truncate">{availabilityLabel(listing)}</p>}
         <p className="text-sm text-muted line-clamp-2">{listing.description}</p>
         <div className="mt-auto pt-1 flex items-center justify-between gap-2">
           <span className="text-xs text-muted truncate">{distanceLine(listing)}</span>
